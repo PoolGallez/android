@@ -21,27 +21,28 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void onClick(View view) {
-        Intent i = new Intent("MY_ACTION_01");
-        i.putExtra("key", "*** My Action 01 ***");
-        sendBroadcast(i);
-    }
-
-    public void onClickAgain(View view) {
-        Intent i = new Intent("MY_ACTION_02");
-        i.putExtra("key", "*** My Action 02 ***");
+        int id = view.getId();
+        Intent i = null;
+        switch (id){
+            case R.id.button:
+                i = new Intent("MY_ACTION_01");
+                i.putExtra("key", "*** My Action 01 ***");
+                break;
+            case R.id.button2:
+                i = new Intent("MY_ACTION_02");
+                i.putExtra("key", "*** My Action 02 ***");
+        }
         sendBroadcast(i);
     }
 
     @Override
     public void onResume() {
         super.onResume();
-        //---register the receiver---
         registerReceiver(myReceiver, intentFilter);
     }
     @Override
     public void onPause() {
         super.onPause();
-        //---unregister the receiver---
         unregisterReceiver(myReceiver);
     }
 }

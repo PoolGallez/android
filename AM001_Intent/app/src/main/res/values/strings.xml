@@ -1,5 +1,5 @@
 <resources>
     <string name="app_name">AM001_Intent</string>
-    <string name="pres_me">press me</string>
+    <string name="press_me">press me</string>
     <string name="activity_two">Activity Two</string>
 </resources>

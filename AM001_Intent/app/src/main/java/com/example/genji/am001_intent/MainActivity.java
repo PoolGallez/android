@@ -14,7 +14,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        //---Button view---
+        /* set listener old fashion
         Button btn = (Button) findViewById(R.id.button);
         btn.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
@@ -22,7 +22,12 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(i);
             }
         });
-
+        */
+        Button btn = (Button) findViewById(R.id.button);
+        btn.setOnClickListener((View view) -> {
+                Intent i = new Intent(this, ActivityTwo.class);
+                startActivity(i);
+        });
 
     }
 }

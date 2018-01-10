@@ -16,14 +16,15 @@ public class MainActivity extends AppCompatActivity {
 
     public void onClick(View view) {
         Intent i = new Intent(Intent.ACTION_VIEW);
-        i.setData(Uri.parse("geo:45.495403,12.257509"));
-        startActivity(i);
-    }
-
-    public void onClickBrowser(View view) {
-        String url = "http://www.zuccante.it";
-        Intent i = new Intent(Intent.ACTION_VIEW);
-        i.setData(Uri.parse(url));
+        switch(view.getId()){
+            case R.id.map:
+                String url_position = "geo:45.495403,12.257509";
+                i.setData(Uri.parse(url_position));
+                break;
+            case R.id.browser:
+                String url = "http://www.itiszuccante.gov.it";
+                i.setData(Uri.parse(url));
+        }
         startActivity(i);
     }
 }

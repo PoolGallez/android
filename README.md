@@ -1,4 +1,4 @@
-# Mini Course Android
+# Android Mini Course 
 
 Ecco la sequenza delle nostre esercitazioni.
 

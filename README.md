@@ -1,9 +1,9 @@
-# Esercitazioni Android
+# Mini Course Android
 
 Ecco la sequenza delle nostre esercitazioni.
 
 
-## ANdroid Studio 3
+## Starting here
 
 - AM301: sintassi lambda
 

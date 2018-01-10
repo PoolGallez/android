@@ -1,9 +1,14 @@
 <resources>
     <string name="app_name">AM002_Intent</string>
     <string name="main_activity">Main Activity</string>
-    <string name="press_me">Press Me</string>
     <string name="activity_two">Activity Two</string>
-    <string name="state">state</string>
-    <string name="finish">finish</string>
-    <string name="result_ok">result ok</string>
+    <string name="main_activity_returned">Main Activity Returned</string>
+    <string name="press_me">Press Me</string>
+    <string name="result_ok">Result OK</string>
+    <string name="finish">Finish</string>
+    <string name="state">Status</string>
+
+
+
+
 </resources>

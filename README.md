@@ -2,6 +2,11 @@
 
 Ecco la sequenza delle nostre esercitazioni.
 
+
+## ANdroid Studio 3
+
+- AM301: sintassi lambda
+
 ## Activity & Intent
 
 - AM001_Intent: Intent implicito ed eseplicito.

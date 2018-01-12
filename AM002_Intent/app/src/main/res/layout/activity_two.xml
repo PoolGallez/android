@@ -37,14 +37,65 @@
         android:id="@+id/finish"
         />
 
-    <TextView
+    <TableLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginTop="60dp"
-        android:text="@string/state"
-        android:id="@+id/state"
-         />
+        android:layout_marginLeft="30dp"
+        android:layout_marginTop="30dp"
+        >
+        <TableRow>
+            <TextView
+                android:text="@string/str1"
+                android:gravity="left" />
+            <TextView
+                android:id="@+id/str1"
+                android:gravity="left"
+                android:padding="3dp" />
+        </TableRow>
+        <TableRow>
+            <TextView
+                android:text="@string/n1"
+                android:gravity="left" />
+            <TextView
+                android:id="@+id/n1"
+                android:gravity="left"
+                android:padding="3dp" />
+        </TableRow>
+        <TableRow android:layout_marginTop="10dp">
+            <TextView
+                android:text="@string/bundle"
+                android:gravity="left" />
+        </TableRow>
+        <TableRow>
+            <TextView
+                android:text="@string/str2"
+                android:gravity="left" />
+            <TextView
+                android:id="@+id/str2"
+                android:gravity="left"
+                android:padding="3dp" />
+        </TableRow>
+        <TableRow>
+            <TextView
+                android:text="@string/n2"
+                android:gravity="left" />
+            <TextView
+                android:id="@+id/n2"
+                android:gravity="left"
+                android:padding="3dp" />
+        </TableRow>
+        <TableRow android:layout_marginTop="10dp" >
+            <TextView
+                android:text="@string/n3"
+                android:gravity="left" />
+            <TextView
+                android:id="@+id/n3"
+                android:gravity="left"
+                android:padding="3dp" />
+        </TableRow>
+
+    </TableLayout>
+
 
 </LinearLayout>
 

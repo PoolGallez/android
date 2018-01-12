@@ -15,63 +15,52 @@ public class ActivityTwo extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_two);
 
-        // data passed in using getStringExtra() via Intent i
-        Toast.makeText(this,getIntent().getStringExtra("str1"),
-                Toast.LENGTH_SHORT).show();
-        // ... using getIntExtra()
-        Toast.makeText(this,Integer.toString(
-                getIntent().getIntExtra("n3", 999)),
-                Toast.LENGTH_SHORT).show();
-
-        // get the Bundle object passed in via Intent i using getExtras()
-        Bundle bundle = getIntent().getExtras();
-        // get the data using the getString()
-        Toast.makeText(this, bundle.getString("str2"),
-                Toast.LENGTH_SHORT).show();
-        // ... using the getInt() method
-        Toast.makeText(this,Integer.toString(bundle.getInt("n2")),
-                Toast.LENGTH_SHORT).show();
+        // ... trick for landscape
+        if(findViewById(R.id.n4) != null){
+            TextView n4_land = findViewById(R.id.n4);
+            if(savedInstanceState != null){
+                n4_land.setText(String.valueOf(savedInstanceState.getInt("n4")));
+            }
+            return;
+        }
 
         // .. picking widgets
-        TextView state = findViewById(R.id.state);
+        TextView str1 = findViewById(R.id.str1);
+        TextView n1 = findViewById(R.id.n1);
+        TextView str2 = findViewById(R.id.str2);
+        TextView n2 = findViewById(R.id.n2);
+        TextView n3 = findViewById(R.id.n3);
         Button rok = findViewById(R.id.rok);
         Button finish = findViewById(R.id.finish);
 
-        // ... trick for landscape
-        if(findViewById(R.id.state_land) == null){
 
-            state.setText("bundle{str2: \"" + bundle.getString("str2") + "\", n2: " + String.valueOf(bundle.getInt("n2"))+"}");
-            rok.setOnClickListener((view) -> {
-                // no arguments in constructor !!!!
-                Intent i = new Intent();
-                // use putExtra() to add new key/value pairs to intent i ---
-                i.putExtra("isOK", "RESULT OK");
-                //---set the result with OK and the Intent object---
-                setResult(RESULT_OK, i);
-                /*
-                 * Call this when your activity is done and should be closed.
-                 * The ActivityResult is propagated back to whoever launched
-                 * Call this when your activity is done and should be closed.
-                 * The ActivityResult is propagated back to whoever launched you via onActivityResult().
-                 */
-                ActivityTwo.this.finish();
-            });
+        str1.setText(getIntent().getStringExtra("str1"));
+        n1.setText(Integer.toString(getIntent().getIntExtra("n1", 0)));
 
+        // get the Bundle object passed in via Intent i using getExtras()
+        Bundle bundle = getIntent().getExtras();
+        str2.setText(bundle.getString("str2"));
+        n2.setText(Integer.toString(bundle.getInt("n2", 0)));
 
-            finish.setOnClickListener((View view) -> {
-                    Intent i = new Intent(this, ActivityTwo.class);
-                    // use putExtra() to add new key/value pairs to intent i ---
-                    i.putExtra("isOK", "RESULT OK");
-                    //---set the result with OK and the Intent object---
-                    // ActivityTwo.this.setResult(RESULT_OK, i);
-                    finish();
-            });
-        } else {
-            if(savedInstanceState != null){
-                state.setText("bundle{str4: \"" + savedInstanceState.getString("str4") + "\", n4: " + String.valueOf(savedInstanceState.getInt("n4"))+"}");
-            }
-        }
+        n3.setText(Integer.toString(getIntent().getIntExtra("n3", 666)));
 
+        rok.setOnClickListener((view) -> {
+            // no arguments in constructor !!!!
+            Intent i = new Intent();
+            // use putExtra() to add new key/value pairs to intent i ---
+            i.putExtra("isOK", "RESULT OK");
+            //---set the result with OK and the Intent object---
+            setResult(RESULT_OK, i);
+            finish();
+        });
+
+        finish.setOnClickListener((View view) -> {
+            Intent i = new Intent(this, ActivityTwo.class);
+            // use putExtra() to add new key/value pairs to intent i ---
+            i.putExtra("isOK", "RESULT OK FROM FINISH");
+            //---set the result with OK and the Intent object---
+            finish();
+        });
     }
 
     @Override
@@ -80,7 +69,6 @@ public class ActivityTwo extends AppCompatActivity {
         // Save UI state changes to the savedInstanceState.
         // This bundle will be passed to onCreate if the process is
         // killed and restarted.
-        savedInstanceState.putString("str4", "state saved");
-        savedInstanceState.putInt("n4", 1111);
+        savedInstanceState.putInt("n4", 444);
     }
 }

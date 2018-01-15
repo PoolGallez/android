@@ -18,14 +18,14 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void startAlert(View view) {
-        EditText text = (EditText) findViewById(R.id.time);
-        int i = Integer.parseInt(text.getText().toString());
+        EditText text = findViewById(R.id.time);
+        int delay = Integer.parseInt(text.getText().toString());
         Intent intent = new Intent(this, MyBroadcastReceiver.class);
-        PendingIntent pendingIntent = PendingIntent.getBroadcast(this.getApplicationContext(), 234324243, intent, PendingIntent.FLAG_CANCEL_CURRENT);
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(this, 1234567890, intent, PendingIntent.FLAG_CANCEL_CURRENT);
         AlarmManager alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
         alarmManager.set(AlarmManager.RTC_WAKEUP, System.currentTimeMillis()
-                + (i * 1000), pendingIntent);
-        Toast.makeText(this, "... waiting " + i + " seconds",
+                + (delay * 1000), pendingIntent);
+        Toast.makeText(this, "... waiting " + delay + " seconds",
                 Toast.LENGTH_LONG).show();
     }
 

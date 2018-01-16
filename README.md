@@ -12,7 +12,8 @@ Ecco la sequenza delle nostre esercitazioni.
 - AM001_Intent: Intent implicito ed eseplicito.
 - AM002_Intent: ancora sulla gestione delle Activity e l'uso degli Intent.
 - AM006_Activity: ciclo di vita, Log e notifiche.
-- AM005_MAp: Intent implicito con App standard e personali (AM007_MyBrowser)
+- AM302_splash: un'activity senza layout.
+- AM005_Map: Intent implicito con App standard e personali (AM007_MyBrowser)
 
 ## Fragment & Dialogs
 

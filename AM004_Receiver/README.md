@@ -30,3 +30,7 @@ Qui lavoriamo in modo programmatico. Facciamo osservare la riscrittura dei metod
 ```
 Invitiamo ad andare alla API di `Context`: [qui](https://developer.android.com/reference/android/content/Context.html).
 
+## Broadcast locale con LocalBroadcastManager
+
+In questo caso il BroadcastReceiver non può ricevere Broadcast al di fuori dall'appa cui appartiene, vedi [qui](https://developer.android.com/reference/android/support/v4/content/LocalBroadcastManager.html); non può essere registrato in XML alla solita maniera.
+

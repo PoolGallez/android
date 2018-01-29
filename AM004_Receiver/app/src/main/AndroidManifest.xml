@@ -11,16 +11,14 @@
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
 
         <!-- a persistent way to receive broadcasts -->
-
-        <receiver android:name="MyBroadcastReceiverXML" >
+        <receiver android:name=".MyBroadcastReceiverXML">
             <intent-filter>
-                <action android:name="MY_ACTION_02" />
+                <action android:name="com.example.genji.am004_receiver.TWO" />
             </intent-filter>
         </receiver>
 

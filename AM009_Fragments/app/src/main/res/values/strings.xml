@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">AM009_Fragments</string>
+    <string name="btn">update</string>
+    <string name="text"> ... waiting update!</string>
 </resources>

@@ -20,35 +20,31 @@ public class MyListFragment extends Fragment {
 
     private OnItemSelectedListener listener;
 
+    public interface OnItemSelectedListener {
+        void onItemSelected(String link);
+    }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_overview,
+        View view = inflater.inflate(R.layout.list,
                 container, false);
-        Button button = (Button) view.findViewById(R.id.button);
-        button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                updateDetail("fake");
-            }
-        });
+        Button button = view.findViewById(R.id.button);
+        button.setOnClickListener((v) -> updateDetail("fake"));
         return view;
     }
 
-    public interface OnItemSelectedListener {
-        public void onItemSelected(String link);
-    }
 
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
 
-        Activity activity = context instanceof Activity ? (Activity) context : null;
+        MainActivity activity = context instanceof MainActivity ? (MainActivity) context : null;
 
         // This makes sure that the container activity has implemented
         // the callback interface. If not, it throws an exception.
         try {
-            listener = (OnItemSelectedListener) activity;
+            listener = activity;
         } catch (ClassCastException e) {
             throw new ClassCastException(activity.toString()
                     + " must implement OnHeadlineSelectedListener");
@@ -76,7 +72,6 @@ public class MyListFragment extends Fragment {
 
     // triggers update of the details fragment
     public void updateDetail(String txt) {
-        // create fake data
         String newTime = String.valueOf(System.currentTimeMillis());
         // send data to activity
         if (listener != null)

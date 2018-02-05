@@ -3,7 +3,7 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#f78282">
+    android:background="@color/orange">
 
     <TextView
         android:layout_width="wrap_content"
@@ -11,7 +11,7 @@
         android:layout_weight="1"
         android:gravity="center"
         android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="Canto V"
+        android:text="@string/frag1_header"
         android:layout_gravity="center_horizontal" />
     <TextView
         android:layout_width="wrap_content"

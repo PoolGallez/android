@@ -47,13 +47,13 @@ Andiamo ad effettuare una `FragmentTransaction` più raffinata cercando degli ef
 ```
 setCustomAnimation(int enter, int exit)
 ```
-per la cui documentazione rimandiamo alle API: [qui](https://developer.android.com/reference/android/app/FragmentTransaction.html). Le animazioni non verranno eseguite la gestione dello stack.
-Andando sulle res possiamo aggiungere un file di tipo Animator
+per la cui documentazione rimandiamo alle API: [qui](https://developer.android.com/reference/android/app/FragmentTransaction.html). 
+Andando sulle res possiamo aggiungere un file di tipo Animator, precisamente sono `AnimatorSet`, [qui](https://developer.android.com/reference/android/animation/AnimatorSet.html) per le API, il quale è composto da `ObjectAnimator`, [qui](https://developer.android.com/reference/android/animation/ObjectAnimator.html) per le API.
 ```
 <?xml version="1.0" encoding="utf-8"?>
 <set xmlns:android="http://schemas.android.com/apk/res/android">
    // added using menu
 </set>
 ```
-Invitiamo a leggere con attenzione la API: [qui](https://developer.android.com/guide/topics/resources/animation-resource.html). Sono le **PropertyAnimation** ad essere animate: [qui](https://developer.android.com/guide/topics/graphics/prop-animation.html).
+Per una guida: [qui](https://developer.android.com/guide/topics/graphics/prop-animation.html#object-animator).
  

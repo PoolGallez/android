@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">AM304_JobService</string>
+    <string name="header">JobService</string>
+    <string name="action">Start JobService</string>
+</resources>

@@ -20,25 +20,21 @@ public class MainActivity extends AppCompatActivity {
         FragmentTransaction fragmentTransaction = fm.beginTransaction();
         fragmentTransaction.add(R.id.fragment_container, fr);
         fragmentTransaction.commit();
-
-
     }
 
     public void selectFrag(View view) {
-        Fragment fr;
-
-        if(view == findViewById(R.id.button2)) {
-            fr = new FragmentTwo();
-
-        } else {
-            fr = new FragmentOne();
-        }
-
-
         FragmentManager fm = getFragmentManager();
-        FragmentTransaction fragmentTransaction = fm.beginTransaction();
-        fragmentTransaction.replace(R.id.fragment_container, fr);
-        fragmentTransaction.commit();
-
+        Fragment fr;
+        if(view == findViewById(R.id.btn2) && findViewById(R.id.f1) != null){
+            fr = new FragmentTwo();
+            FragmentTransaction fragmentTransaction = fm.beginTransaction();
+            fragmentTransaction.replace(R.id.fragment_container, fr);
+            fragmentTransaction.commit();
+        } else if (view == findViewById(R.id.btn1) && findViewById(R.id.f2) != null){
+            fr = new FragmentOne();
+            FragmentTransaction fragmentTransaction = fm.beginTransaction();
+            fragmentTransaction.replace(R.id.fragment_container, fr);
+            fragmentTransaction.commit();
+        }
     }
 }

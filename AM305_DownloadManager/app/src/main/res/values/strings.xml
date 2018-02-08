@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">AM305_DownloadManager</string>
+    <string name="check">check network</string>
+    <string name="download">download file</string>
+    <string name="url_hint">http://....</string>
+    <string name="url_uncorrect">Url uncorrect!</string>
+    <string name="README.md">https://raw.githubusercontent.com/divino-marchese/android/master/README.md</string>
+
+
+</resources>

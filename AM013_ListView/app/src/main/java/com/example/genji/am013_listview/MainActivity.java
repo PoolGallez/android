@@ -1,26 +1,21 @@
 package com.example.genji.am013_listview;
 
-import android.database.DataSetObserver;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
     private ListView mListView;
-    private ArrayAdapter adapter;
-    private List products;
+    private ArrayAdapter<String> adapter;
+    private ArrayList<String> products;
 
 
     @Override
@@ -31,7 +26,7 @@ public class MainActivity extends AppCompatActivity {
         initializeProducts();
 
         mListView = findViewById(R.id.my_list_view);
-        adapter = new ArrayAdapter(this, android.R.layout.test_list_item, products);
+        adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, products);
         /*
         mListView.setChoiceMode(ListView.CHOICE_MODE_NONE);
         mListView.setChoiceMode(ListView.CHOICE_MODE_SINGLE);
@@ -60,7 +55,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void initializeProducts(){
-        products = new ArrayList<String>(Arrays.asList(
+        products = new ArrayList<>(Arrays.asList(
                 "gioppini",
                 "jambonetti",
                 "patatine sfizione",

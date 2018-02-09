@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">AM013_ListView</string>
+    <string name="populate">zonta</string>
+
 </resources>

@@ -13,10 +13,8 @@ import java.util.Arrays;
 
 public class MainActivity extends AppCompatActivity {
 
-    private ListView mListView;
     private ArrayAdapter<String> adapter;
     private ArrayList<String> products;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,7 +23,7 @@ public class MainActivity extends AppCompatActivity {
 
         initializeProducts();
 
-        mListView = findViewById(R.id.my_list_view);
+        ListView mListView = findViewById(R.id.my_list_view);
         adapter = new ArrayAdapter<>(this, android.R.layout.test_list_item, products);
         /*
         mListView.setChoiceMode(ListView.CHOICE_MODE_NONE);
@@ -72,5 +70,4 @@ public class MainActivity extends AppCompatActivity {
                 "biscotti al miglio e avena"
         ));
     }
-
 }

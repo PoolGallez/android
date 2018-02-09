@@ -26,7 +26,7 @@ public class MainActivity extends AppCompatActivity {
         initializeProducts();
 
         mListView = findViewById(R.id.my_list_view);
-        adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, products);
+        adapter = new ArrayAdapter<>(this, android.R.layout.test_list_item, products);
         /*
         mListView.setChoiceMode(ListView.CHOICE_MODE_NONE);
         mListView.setChoiceMode(ListView.CHOICE_MODE_SINGLE);

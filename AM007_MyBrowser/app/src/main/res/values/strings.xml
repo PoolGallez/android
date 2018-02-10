@@ -1,5 +1,5 @@
 <resources>
     <string name="app_name">AM007_MyBrowser</string>
     <string name="main_activity">Main Activity</string>
-    <string name="activity_browser">Main Activity</string>
+    <string name="activity_browser">Browser Activity</string>
 </resources>

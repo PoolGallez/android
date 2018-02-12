@@ -1,5 +1,6 @@
 package com.example.genji.am305_downloadmanager;
 
+import android.Manifest;
 import android.app.DownloadManager;
 import android.app.Notification;
 import android.app.NotificationManager;
@@ -7,11 +8,15 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Environment;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -32,9 +37,12 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        downloadManager = (DownloadManager) getSystemService(DOWNLOAD_SERVICE); // Context.D ....
+        downloadManager = (DownloadManager) getSystemService(Context.DOWNLOAD_SERVICE);
+        if(!enabledPermission())
+            Toast.makeText(this, "You have not permission", Toast.LENGTH_LONG).show();
     }
 
+    // onClick method
     public void checkNetwork(View v){
         ConnectivityManager cm =
                 (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
@@ -44,27 +52,14 @@ public class MainActivity extends AppCompatActivity {
             Toast.makeText(this, "Network ok", Toast.LENGTH_SHORT).show();
     }
 
+    // onClick method
     public void startDownload(View v){
-        String fileUri = ((EditText)findViewById(R.id.url_file)).getText().toString();
+        EditText editUri = findViewById(R.id.url_file);
+        String fileUri = editUri.getText().toString();
         downloadUri = Uri.parse(fileUri);
+        // create and enqueue a request
         DownloadManager.Request request = new DownloadManager.Request(downloadUri);
         enqueueRequest(request);
-    }
-
-    private void enqueueRequest(DownloadManager.Request request){
-        String fileName = downloadUri.getLastPathSegment();;
-        // set notification
-        request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE);
-        request.setTitle("Downloding data");
-        request.setDescription(fileName);
-        // set file destination
-        request.setDestinationInExternalFilesDir(this, Environment.DIRECTORY_DOWNLOADS, fileName );
-        // set to visible the download
-        request.setVisibleInDownloadsUi(true);
-        // set allowed network
-        request.setAllowedNetworkTypes(DownloadManager.Request.NETWORK_MOBILE | DownloadManager.Request.NETWORK_WIFI);
-        // put in queue the (prepared) request
-        reference = downloadManager.enqueue(request);
     }
 
     @Override
@@ -83,6 +78,23 @@ public class MainActivity extends AppCompatActivity {
         super.onPause();
         unregisterReceiver(notificationReceiver);
         unregisterReceiver(downloadReceiver);
+    }
+
+    private void enqueueRequest(DownloadManager.Request request){
+        // obtain the name of file
+        String fileName = downloadUri.getLastPathSegment();
+        // set notifications
+        // request.setVisibleInDownloadsUi(true);
+        request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE);
+        request.setTitle("Downloading data");
+        request.setDescription(fileName);
+        // set file destination
+        // request.setDestinationInExternalFilesDir(this, Environment.DIRECTORY_DOWNLOADS, fileName );
+        // obsoleto
+        request.setDestinationInExternalPublicDir(Environment.DIRECTORY_DOWNLOADS, fileName );
+        request.setAllowedNetworkTypes(DownloadManager.Request.NETWORK_MOBILE | DownloadManager.Request.NETWORK_WIFI);
+        // put in queue the (prepared) request and return the ID of the download
+        reference = downloadManager.enqueue(request);
     }
 
     // a factory methods
@@ -159,5 +171,21 @@ public class MainActivity extends AppCompatActivity {
                 (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
         mNotifyMgr.notify(mNotificationId, notification);
 
+    }
+
+
+    public boolean enabledPermission() {
+        if (Build.VERSION.SDK_INT >= 23) {
+            if (ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                    == PackageManager.PERMISSION_GRANTED) {
+                return true;
+            } else {
+                ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, 1);
+                return false;
+            }
+        }
+        else {
+            return true;
+        }
     }
 }

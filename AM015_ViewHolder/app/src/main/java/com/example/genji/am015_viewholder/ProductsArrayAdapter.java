@@ -12,12 +12,12 @@ import android.widget.TextView;
 import java.util.ArrayList;
 
 /**
- * Created by genji on 4/2/16. Updated on 11/03/2017
+ * Created by genji on 4/2/16. Updated on 12/02/2018
  */
 public class ProductsArrayAdapter extends ArrayAdapter<Product> {
     private final Activity context;
     // the products arrayList
-    private ArrayList products;
+    private ArrayList<Product> products;
 
     private static final String TAG = "ViewHolder";
 
@@ -41,7 +41,7 @@ public class ProductsArrayAdapter extends ArrayAdapter<Product> {
         View rowView = convertView;
         ViewHolder viewHolder;
 
-        Product p = (Product)products.get(position);
+        Product p = products.get(position);
 
         // reuse view: ViewHolder pattern
         if (rowView == null) {
@@ -49,10 +49,9 @@ public class ProductsArrayAdapter extends ArrayAdapter<Product> {
             rowView = inflater.inflate(R.layout.row_layout, null);
             // configure view holder
             viewHolder = new ViewHolder();
-            viewHolder.name = (TextView) rowView.findViewById(R.id.name);
-            viewHolder.description = (TextView) rowView.findViewById(R.id.description);
-            viewHolder.image = (ImageView) rowView
-                    .findViewById(R.id.icon);
+            viewHolder.name = rowView.findViewById(R.id.name);
+            viewHolder.description = rowView.findViewById(R.id.description);
+            viewHolder.image = rowView.findViewById(R.id.icon);
             // take memory of the view
             rowView.setTag(viewHolder);
             // Log steTag()

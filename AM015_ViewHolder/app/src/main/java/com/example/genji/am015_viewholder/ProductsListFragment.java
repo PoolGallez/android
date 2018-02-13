@@ -9,20 +9,14 @@ import android.widget.AdapterView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 /**
  * Created by genji on 4/2/16.
  */
 public class ProductsListFragment extends ListFragment implements AdapterView.OnItemClickListener {
 
-    ArrayList products;
-
-    /*
-    @Override
-    public void onCreate(Bundle savedInstanceState){
-        super.onCreate(savedInstanceState);
-    }
-    */
+    ArrayList<Product> products;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -36,21 +30,7 @@ public class ProductsListFragment extends ListFragment implements AdapterView.On
 
         // initialize products array
 
-        products = new ArrayList<>();
-        products.add(new Product("gioppini", "panetti sfiziosi"));
-        products.add(new Product("jambonetti", "salatini al prosciutto"));
-        products.add(new Product("patatine sfizione", "patatine salate ed aromatizzate"));
-        products.add(new Product("tarallini", "anelli di pane"));
-        products.add(new Product("gallette", "gallette plus"));
-        products.add(new Product("frollini plus", "biscotti all'uovo"));
-        products.add(new Product("cioccolini", "frollini con gocce di cioccolata"));
-        products.add(new Product("secchini", "biscotti secchi"));
-        products.add(new Product("grissinini", "grissini piccoli e sottili"));
-        products.add(new Product("patasplash", "le patatine da bordo piscina"));
-        products.add(new Product("majopatas", "le patatine aromatizzate .."));
-        products.add(new Product("crocchette al sesamo", "panetti al sesamo"));
-        products.add(new Product("crocchette alla pancetta", "panetti alla pancetta"));
-        products.add(new Product("biscotti al miglio e avena", "i biscotti cinguettanti"));
+        products = new ArrayList<>(Arrays.asList(Product.products));
 
         ProductsArrayAdapter adapter = new ProductsArrayAdapter(getActivity(), products);
         //use this below for a correct initialization
@@ -63,7 +43,7 @@ public class ProductsListFragment extends ListFragment implements AdapterView.On
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        Toast.makeText(getActivity(), "Item: " + position + "\nname: " + ((Product)products.get(position)).getName() + "\n" +
-                "description: " + ((Product)products.get(position)).getDescription(), Toast.LENGTH_SHORT).show();
+        Toast.makeText(getActivity(), "Item: " + position + "\n name: " + (products.get(position)).getName() + "\n" +
+                "description: " + (products.get(position)).getDescription(), Toast.LENGTH_SHORT).show();
     }
 }

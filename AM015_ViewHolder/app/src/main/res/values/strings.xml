@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">AM015_ViewHolder</string>
+    <string name="header">View Holder</string>
 </resources>

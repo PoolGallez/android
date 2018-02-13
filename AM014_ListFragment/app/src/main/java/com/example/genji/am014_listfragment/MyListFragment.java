@@ -13,6 +13,7 @@ import android.widget.Toast;
  * Created by genji on 1/31/16. Updated on 11/03/2017
  */
 public class MyListFragment extends ListFragment implements AdapterView.OnItemClickListener {
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.list_fragment, container, false);
@@ -23,7 +24,7 @@ public class MyListFragment extends ListFragment implements AdapterView.OnItemCl
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         // create the adapter
-        ArrayAdapter adapter = ArrayAdapter.createFromResource(getActivity(), R.array.products, android.R.layout.simple_list_item_1);
+        ArrayAdapter adapter = ArrayAdapter.createFromResource(getActivity(), R.array.products, android.R.layout.test_list_item);
         // connect the adapter
         setListAdapter(adapter);
         // connect the listener

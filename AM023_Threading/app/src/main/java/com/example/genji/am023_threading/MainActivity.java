@@ -17,49 +17,38 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        progress = (ProgressBar) findViewById(R.id.progressBar);
-        text = (TextView) findViewById(R.id.textView);
+        progress = findViewById(R.id.progressBar);
+        text = findViewById(R.id.textView);
     }
 
     public void startProgress(View view) {
-        // do something long
-        Runnable runnable = new Runnable() {
-            @Override
-            public void run() {
-                for (int i = 0; i <= 10; i++) {
-                    final int value = i;
-                    // fix a delay
-                    doFakeWork();
-                    // add a runnable to message queue
-                    progress.post(new Runnable() {
-                        @Override
-                        public void run() {
-                            text.setText("Updating");
-                            progress.setProgress(value);
-                        }
-                    });
-                }
-                // the last message
-                progress.post(new Runnable() {
-                    @Override
-                    public void run() {
-                        text.setText("Finish");
-                        progress.setProgress(0);
-                    }
+
+        // this thread communicates with UI thread
+        new Thread(()->{
+            // reset (UI communication)
+            progress.post(() -> progress.setProgress(0));
+            // work
+            for (int i = 0; i <= 10; i++) {
+                final int value = i;
+                doSomething();
+                // (UI communication)
+                progress.post(() -> {
+                    text.setText("Updating");
+                    progress.setProgress(value);
                 });
             }
-        };
-        Thread t = new Thread(runnable);
-        t.start();
+            // end work (UI communication)
+            progress.post(()->{
+                text.setText("Finish");
+            });
+        }).start();
     }
 
-    // Simulating something timeconsuming
-    private void doFakeWork() {
+    private void doSomething() {
         try {
             Thread.sleep(2000);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
     }
-
 }

@@ -1,6 +1,7 @@
 package com.example.genji.am027_asynctask;
 
 import android.os.AsyncTask;
+import android.os.SystemClock;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -21,9 +22,9 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        time = (EditText) findViewById(R.id.time);
-        button = (Button) findViewById(R.id.button);
-        finalResult = (TextView) findViewById(R.id.finalResult);
+        time = findViewById(R.id.time);
+        button = findViewById(R.id.button);
+        finalResult = findViewById(R.id.finalResult);
     }
 
     /* AsyncTask generic:
@@ -43,18 +44,14 @@ public class MainActivity extends AppCompatActivity {
             // Divide total time in 10 parts
             int pTime = 10*time;
             for(int i = 1; i < 100; i++){
-                try {
-                    Thread.sleep(pTime);
-                    /* The next method can be invoked from doInBackground(Params...)
-                     * to publish updates on the UI thread
-                     * while the background computation is still running.
-                     * Each call to this method will trigger the execution of
-                     * onProgressUpdate(Progress...) on the UI thread.
-                     */
-                    publishProgress(String.valueOf(i));
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
+                SystemClock.sleep(pTime);
+                /* The next method can be invoked from doInBackground(Params...)
+                 * to publish updates on the UI thread
+                 * while the background computation is still running.
+                 * Each call to this method will trigger the execution of
+                 * onProgressUpdate(Progress...) on the UI thread.
+                 */
+                publishProgress(String.valueOf(i));
             }
             resp = String.valueOf(time);
             return resp;
@@ -84,7 +81,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void onClick(View v) {
-        finalResult.setTextColor(ContextCompat.getColor(this, R.color.red));
+        finalResult.setTextColor(getResources().getColor(R.color.red));
         finalResult.setText("");
         if (runner != null && runner.getStatus() == AsyncTask.Status.RUNNING) {
             runner.cancel(true);

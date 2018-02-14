@@ -27,3 +27,15 @@ Ecco la sequenza delle nostre esercitazioni.
 - AM013_ListView.
 - AM014_ListFragment.
 - AM015_ViewHolder: **pattern** del ViewHolder.
+
+## Broadcast and System Services
+
+- AM003_Receiver 
+- AM003_Receiver: qui viene introdotto il `PendingIntent`
+- AM305_DownloadManager: esempio articolato di approfondimento
+
+## Threading
+
+- AM023_Threading: un **working thread** comunica con **UI-thread**.
+- AM027_AsyncTask
+

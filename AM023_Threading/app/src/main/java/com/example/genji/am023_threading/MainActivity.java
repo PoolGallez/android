@@ -1,5 +1,6 @@
 package com.example.genji.am023_threading;
 
+import android.os.SystemClock;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -45,10 +46,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void doSomething() {
-        try {
-            Thread.sleep(2000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+        SystemClock.sleep(2000);
     }
 }

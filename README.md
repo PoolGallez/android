@@ -22,11 +22,12 @@ Ecco la sequenza delle nostre esercitazioni.
 - AM008_AlertDialog: FragmentDialog per Picker e Dialog.
 - AM009_Fragments: **pattern** comunicazione fra due fragment di una stessa activity.
 
-## ListView
+## ListView and RecyclerView
 
 - AM013_ListView.
 - AM014_ListFragment.
 - AM015_ViewHolder: **pattern** del ViewHolder.
+- AM306_RecyclerView
 
 ## Broadcast and System Services
 

@@ -4,7 +4,9 @@ import android.app.DialogFragment;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
+import android.content.Context;
 import android.content.DialogInterface;
+import android.graphics.Color;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -31,20 +33,6 @@ public class MainActivity extends AppCompatActivity {
         AlertDialog.Builder builder;
         FragmentManager manager = getFragmentManager();
 
-        DialogInterface.OnClickListener listener_OK = new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
-                Toast.makeText(MainActivity.this, "Pressed OK", Toast.LENGTH_SHORT).show();
-            }
-        };
-
-        DialogInterface.OnMultiChoiceClickListener listener = new DialogInterface.OnMultiChoiceClickListener() {
-            @Override
-            public void onClick(DialogInterface dialogInterface, int i, boolean b) {
-                Toast.makeText(MainActivity.this, i + " is " + b, Toast.LENGTH_SHORT).show();
-            }
-        };
-
         switch (view.getId()) {
             case R.id.date_picker:
                 DatePickerFragment datePickerFragment = new DatePickerFragment();
@@ -58,7 +46,9 @@ public class MainActivity extends AppCompatActivity {
                 builder = new AlertDialog.Builder(this, R.style.MyAlertDialogStyle);
                 builder.setTitle("AppCompatDialog 01");
                 builder.setMessage("Lorem ipsum dolor...");
-                builder.setPositiveButton("OK", listener_OK);
+                builder.setPositiveButton("OK", (DialogInterface dialogInterface, int i) ->
+                    Toast.makeText(this, "Pressed OK", Toast.LENGTH_SHORT).show()
+                );
                 builder.setNegativeButton("Cancel", null);
                 builder.show();
                 break;
@@ -68,37 +58,14 @@ public class MainActivity extends AppCompatActivity {
                 builder = new AlertDialog.Builder(this, R.style.MyAlertDialogStyle);
                 builder.setTitle("Choose something");
                 builder.setPositiveButton("zap", null);
-                builder.setMultiChoiceItems(choices, checkedChoices, listener);
+                builder.setMultiChoiceItems(choices, checkedChoices,
+                        (DialogInterface dialogInterface, int i, boolean b) ->
+                                Toast.makeText(MainActivity.this, i + " is " + b, Toast.LENGTH_SHORT).show()
+                        );
                 // builder.setItems(choices, null);
                 // here below you can proceed as in the previous case
                 AppCompatDialog alert = builder.create();
                 alert.show();
-                break;
-            case R.id.compat_3:
-                builder = new AlertDialog.Builder(this, R.style.MyAlertDialogStyle);
-                // the trick here is ew ContextThemeWrapper(this, R.style.MyAlertDialogStyle)
-                // it must be final
-                final EditText etNickName = new EditText(new ContextThemeWrapper(this, R.style.MyAlertDialogStyle));
-                // adda a view
-                builder.setView(etNickName);
-                builder.setTitle(R.string.custom_dialog);
-                final String username = "Ciccio";
-                final String roomName = "happy room";
-                builder.setMessage(username + " has invited you to join " + roomName + " for lots of fun chatting");
-                builder.setPositiveButton("Enter user name", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-                        if(etNickName.getText().toString().isEmpty()) {
-                            Toast.makeText(MainActivity.this, "Enter a user name", Toast.LENGTH_SHORT).show();
-                        }
-                        else {
-                            Log.d("MyTAG", "You have entered: " + etNickName.getText().toString());
-                            TextView text = MainActivity.this.findViewById(R.id.textView);
-                            text.setText("You have entered: " + etNickName.getText().toString());
-                        }
-                    }
-                });
-                builder.show();
                 break;
             case R.id.compat_4:
                 View viewAlert = getLayoutInflater().inflate(R.layout.custom, null);
@@ -133,7 +100,11 @@ public class MainActivity extends AppCompatActivity {
                 DialogFragment newFragment = MyDFragment01.newInstance(style, theme);
                 newFragment.show(ft, "dialog");
 
+
+
         }
+
+
     }
 
 }

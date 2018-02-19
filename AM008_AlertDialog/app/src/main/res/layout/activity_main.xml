@@ -40,34 +40,35 @@
 
     <Button
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="30dp"
+        android:layout_gravity="center"
+        android:background="@color/dark_orange"
+        android:layout_marginTop="10dp"
+        android:padding="3dp"
         android:text="App Compat 1"
         android:id="@+id/compat_1"
-        android:layout_gravity="center_horizontal"
         android:onClick="onClick"/>
 
     <Button
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="30dp"
+        android:layout_gravity="center"
+        android:background="@color/dark_orange"
+        android:layout_marginTop="10dp"
+        android:padding="3dp"
         android:text="App Compt 2"
         android:id="@+id/compat_2"
-        android:layout_gravity="center_horizontal"
         android:onClick="onClick"/>
 
     <Button
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="App Compat 3"
-        android:id="@+id/compat_3"
-        android:layout_gravity="center_horizontal"
-        android:onClick="onClick"/>
-
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="30dp"
+        android:layout_gravity="center"
+        android:background="@color/dark_orange"
+        android:layout_marginTop="10dp"
+        android:padding="3dp"
         android:text="App Compat 4"
         android:id="@+id/compat_4"
-        android:layout_gravity="center_horizontal"
         android:onClick="onClick"/>
     <LinearLayout
         android:orientation="horizontal"

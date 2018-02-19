@@ -93,7 +93,7 @@ public class MainActivity extends AppCompatActivity {
                         }
                         else {
                             Log.d("MyTAG", "You have entered: " + etNickName.getText().toString());
-                            TextView text = (TextView) MainActivity.this.findViewById(R.id.textView);
+                            TextView text = MainActivity.this.findViewById(R.id.textView);
                             text.setText("You have entered: " + etNickName.getText().toString());
                         }
                     }

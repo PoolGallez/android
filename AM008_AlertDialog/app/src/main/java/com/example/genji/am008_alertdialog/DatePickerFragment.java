@@ -16,20 +16,18 @@ public class DatePickerFragment extends DialogFragment implements DatePickerDial
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
-        // Use the current date as the default date in the picker
+        // Use the current date as the default date in the picker (from API 24)
         final Calendar c = Calendar.getInstance();
         int year = c.get(Calendar.YEAR);
         int month = c.get(Calendar.MONTH);
         int day = c.get(Calendar.DAY_OF_MONTH);
 
-        // Create a new instance of DatePickerDialog and return it
-        // t**** his is the listener *****
         return new DatePickerDialog(getActivity(), this, year, month, day);
     }
 
     public void onDateSet(DatePicker view, int year, int month, int day) {
         // Return input text to activity
-        TextView text = (TextView)getActivity().findViewById(R.id.textView);
+        TextView text = getActivity().findViewById(R.id.textView);
         text.setText("DATA: " + year + "/" + (month+1) + "/" + day);
         // dismiss the Dialog Fragment
         this.dismiss();

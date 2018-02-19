@@ -1,8 +1,10 @@
-# AM_008
+# AM_008_Alert Dialog
 
-La vecchia versione è stata sistemata in modo da suggerire in modo più coerente le buone pratiche, sempre seguendo i dogmi del material Design. Spunti sono stati trovati in rete ed ora abbiamo esempi che servono praticamente a tutto. Molto probabilmente in un altro esempio proporremo qualcosa di più complesso.
-
-- Per Data e Ora rimandiamo al classico tutorial di Android Developers: [qui](https://developer.android.com/guide/topics/ui/controls/pickers.html) ove si fa uso dei `Fragment` (ecco il motivo per cui questo esercizio dovrebbe essere inserito dopo lo studio di questi).
+- A differenza di quanto accadeva nelle prime versioni di Android oramai Dialog vengono creati all'interno di Frament i `DialogFragment` dei quali, per i dialog non custam si implementa il metodo
+```
+public Dialog onCreateDialog(Bundle savedInstanceState)
+```
+- Veniamo quindi ai primi due esempi: data e ora; rimandiamo al classico tutorial di Android Developers: [qui](https://developer.android.com/guide/topics/ui/controls/pickers.html).
 - Gli `Alert` sono stati costruiti tutti senza `Fragment`. Nel caso 3 abbiamo usato la strategia di riconfigurare il `Context` a partire dal preesistente. 
 `
 new ContextThemeWrapper(this, R.style.MyAlertDialogStyle)

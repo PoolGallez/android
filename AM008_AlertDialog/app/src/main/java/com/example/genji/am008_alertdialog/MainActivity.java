@@ -13,6 +13,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatDialog;
 import android.support.v7.view.ContextThemeWrapper;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -43,45 +44,19 @@ public class MainActivity extends AppCompatActivity {
                 timePickerFragment.show(manager, "time_picker");
                 break;
             case R.id.compat_1:
-                builder = new AlertDialog.Builder(this, R.style.MyAlertDialogStyle);
-                builder.setTitle("AppCompatDialog 01");
-                builder.setMessage("Lorem ipsum dolor...");
-                builder.setPositiveButton("OK", (DialogInterface dialogInterface, int i) ->
-                    Toast.makeText(this, "Pressed OK", Toast.LENGTH_SHORT).show()
-                );
-                builder.setNegativeButton("Cancel", null);
+                builder = getBuilder(1, this, R.style.MyAlertDialogStyle);
                 builder.show();
                 break;
             case R.id.compat_2:
-                CharSequence[] choices = {"uno", "due", "tre"};
-                boolean[] checkedChoices = {true, false, true};
-                builder = new AlertDialog.Builder(this, R.style.MyAlertDialogStyle);
-                builder.setTitle("Choose something");
-                builder.setPositiveButton("zap", null);
-                builder.setMultiChoiceItems(choices, checkedChoices,
-                        (DialogInterface dialogInterface, int i, boolean b) ->
-                                Toast.makeText(MainActivity.this, i + " is " + b, Toast.LENGTH_SHORT).show()
-                        );
-                // builder.setItems(choices, null);
-                // here below you can proceed as in the previous case
+                builder = getBuilder(2, this, R.style.MyAlertDialogStyle);
                 AppCompatDialog alert = builder.create();
                 alert.show();
                 break;
-            case R.id.compat_4:
-                View viewAlert = getLayoutInflater().inflate(R.layout.custom, null);
-                builder = new AlertDialog.Builder(this);
-                builder.setTitle(R.string.custom2);
-                builder.setView(viewAlert);
-                builder.setNeutralButton("zap", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-                        Toast.makeText(MainActivity.this, "neutral button is n: " + i , Toast.LENGTH_SHORT).show();
-                    }
-                });
+            case R.id.compat_3:
+                builder = getBuilder(3, this, R.style.MyAlertDialogStyle);
                 builder.show();
                 break;
-            case R.id.dfragment_3:
-
+            case R.id.dialog_fragment:
                 int style, theme;
                 String sStyle, sTheme;
                 sStyle = ((EditText)this.findViewById(R.id.style)).getText().toString();
@@ -100,11 +75,46 @@ public class MainActivity extends AppCompatActivity {
                 DialogFragment newFragment = MyDFragment01.newInstance(style, theme);
                 newFragment.show(ft, "dialog");
 
-
-
         }
-
-
     }
 
+
+    // factory method for builder
+    public static AlertDialog.Builder getBuilder(int i, Context context, int theme){
+        AlertDialog.Builder builder = new AlertDialog.Builder(context, theme);
+        switch(i){
+            case 1:
+                builder.setTitle("AppCompatDialog 01");
+                builder.setMessage("Lorem ipsum dolor...");
+                builder.setPositiveButton("OK", (DialogInterface dialogInterface, int position) ->
+                        Toast.makeText(context, "Pressed OK", Toast.LENGTH_SHORT).show()
+                );
+                builder.setNegativeButton("Cancel", null);
+                return builder;
+            case 2:
+                builder = new AlertDialog.Builder(context, theme);
+                CharSequence[] choices = {"uno", "due", "tre"};
+                boolean[] checkedChoices = {true, false, true};
+                builder.setTitle("Choose something");
+                builder.setMultiChoiceItems(choices, checkedChoices,
+                        (DialogInterface dialogInterface, int position, boolean b) ->
+                                Toast.makeText(context, position + " is " + b, Toast.LENGTH_SHORT).show()
+                );
+                builder.setPositiveButton("zap", null);
+                return builder;
+            case 3:
+                LayoutInflater layoutInflater = (LayoutInflater)context.getSystemService(LAYOUT_INFLATER_SERVICE);
+                View viewAlert = layoutInflater.inflate(R.layout.custom, null);
+                builder = new AlertDialog.Builder(context);
+                builder.setTitle(R.string.custom2);
+                builder.setView(viewAlert);
+                builder.setNeutralButton("do", (DialogInterface dialogInterface, int position) ->
+                        Toast.makeText(context, "neutral button is n: " + position , Toast.LENGTH_SHORT).show()
+                );
+                return builder;
+            default:
+                // it has never happened
+                return  builder;
+        }
+    }
 }

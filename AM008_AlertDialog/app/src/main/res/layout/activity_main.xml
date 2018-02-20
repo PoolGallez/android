@@ -67,8 +67,8 @@
         android:background="@color/dark_orange"
         android:layout_marginTop="10dp"
         android:padding="3dp"
-        android:text="App Compat 4"
-        android:id="@+id/compat_4"
+        android:text="App Compat 3"
+        android:id="@+id/compat_3"
         android:onClick="onClick"/>
     <LinearLayout
         android:orientation="horizontal"
@@ -79,7 +79,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="DFragment 3"
-        android:id="@+id/dfragment_3"
+        android:id="@+id/dialog_fragment"
         android:layout_gravity="left"
         android:onClick="onClick"/>
 

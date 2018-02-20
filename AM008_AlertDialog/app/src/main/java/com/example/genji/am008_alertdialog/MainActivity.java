@@ -6,20 +6,14 @@ import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.graphics.Color;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatDialog;
-import android.support.v7.view.ContextThemeWrapper;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
-
-import org.w3c.dom.Text;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -57,12 +51,12 @@ public class MainActivity extends AppCompatActivity {
                 builder.show();
                 break;
             case R.id.dialog_fragment:
-                int style, theme;
-                String sStyle, sTheme;
-                sStyle = ((EditText)this.findViewById(R.id.style)).getText().toString();
-                sTheme = ((EditText)this.findViewById(R.id.theme)).getText().toString();
-                style = (sStyle == null) ? 0 : Integer.parseInt(sStyle);
-                theme = (sTheme == null) ? 0 : Integer.parseInt(sTheme);
+                EditText editStyile = findViewById(R.id.style);
+                EditText editTheme = findViewById(R.id.style);
+                String stringStyle = editStyile.getText().toString();
+                String stringTheme = editStyile.getText().toString();
+                int style = (stringStyle.equals("")) ? 0 : Integer.parseInt(stringStyle);
+                int theme = (stringTheme.equals("")) ? 0 : Integer.parseInt(stringTheme);
 
                 FragmentTransaction ft = manager.beginTransaction();
                 Fragment prev = getFragmentManager().findFragmentByTag("dialog");
@@ -72,11 +66,12 @@ public class MainActivity extends AppCompatActivity {
                 ft.addToBackStack(null);
 
                 // Create and show the dialog.
-                DialogFragment newFragment = MyDFragment01.newInstance(style, theme);
+                DialogFragment newFragment = MyDialogFragment.newInstance(style, theme);
                 newFragment.show(ft, "dialog");
 
         }
     }
+
 
 
     // factory method for builder

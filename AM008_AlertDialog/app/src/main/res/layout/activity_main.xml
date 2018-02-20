@@ -70,30 +70,36 @@
         android:text="App Compat 3"
         android:id="@+id/compat_3"
         android:onClick="onClick"/>
+
     <LinearLayout
         android:orientation="horizontal"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="40dp"
+        android:layout_marginTop="40dp"
+        >
 
         <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="DFragment 3"
-        android:id="@+id/dialog_fragment"
-        android:layout_gravity="left"
-        android:onClick="onClick"/>
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"
+            android:layout_marginLeft="50dp"
+            android:text="custom"
+            android:background="@color/yellow"
+            android:id="@+id/dialog_fragment"
+            android:onClick="onClick"/>
 
         <EditText
-            android:layout_width="30pt"
+            android:layout_width="20pt"
             android:layout_height="match_parent"
             android:hint="theme"
+            android:textSize="10dp"
             android:id="@+id/theme"
             />
 
         <EditText
-            android:layout_width="30pt"
+            android:layout_width="20pt"
             android:layout_height="match_parent"
             android:hint="style"
+            android:textSize="10dp"
             android:id="@+id/style"
             />
 

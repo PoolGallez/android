@@ -26,13 +26,12 @@ public class OperateActivity extends AppCompatActivity implements InputDialog.Ad
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_operate);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
+        FloatingActionButton fab = findViewById(R.id.fab);
+        fab.setOnClickListener((View view) -> {
+
                 /*
                  * Snackbar.make(view, "Add a product", Snackbar.LENGTH_LONG)
                  * .setAction("Action", null).show();
@@ -46,7 +45,7 @@ public class OperateActivity extends AppCompatActivity implements InputDialog.Ad
                 InputDialog dialogFragment = new InputDialog();
                 dialogFragment.show(fm, "MyInputDialog");
             }
-        });
+        );
     }
 
     /* OLD Solution

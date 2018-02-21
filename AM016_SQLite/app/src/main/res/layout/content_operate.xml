@@ -13,11 +13,12 @@
     tools:showIn="@layout/activity_operate">
 
     <TextView
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="My Products"
+        android:text="@string/header"
         android:id="@+id/textView"
+        android:textColor="@color/colorAccent"
         android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />

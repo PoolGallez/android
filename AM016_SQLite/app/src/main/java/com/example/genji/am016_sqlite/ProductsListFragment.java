@@ -19,7 +19,7 @@ import java.util.List;
 public class ProductsListFragment extends ListFragment implements AdapterView.OnItemClickListener {
 
     private ProductsDataSource pds;
-    private List products;
+    private ArrayList<Product> products;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {

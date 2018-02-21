@@ -17,18 +17,18 @@ import java.util.List;
 public class ProductsArrayAdapter extends ArrayAdapter<Product> {
     private final Activity context;
     // the products arrayList
-    private List products;
+    private ArrayList<Product> products;
 
     // this object will be tag
     static class ViewHolder {
-        public ImageView image;
-        public TextView name;
-        public TextView description;
+        private ImageView image;
+        private TextView name;
+        private TextView description;
     }
 
-    public ProductsArrayAdapter(Activity context, List products) {
+    public ProductsArrayAdapter(Activity context, ArrayList<Product> products) {
         super(context, R.layout.rowlayout, products);
-        // this also work
+        // alternative
         // super(context, 0, products);
         this.context = context;
         this.products = products;
@@ -39,7 +39,7 @@ public class ProductsArrayAdapter extends ArrayAdapter<Product> {
         View rowView = convertView;
         ViewHolder viewHolder;
 
-        Product p = (Product)products.get(position);
+        Product p = products.get(position);
 
         // reuse view: ViewHolder pattern
         if (rowView == null) {
@@ -47,9 +47,9 @@ public class ProductsArrayAdapter extends ArrayAdapter<Product> {
             rowView = inflater.inflate(R.layout.rowlayout, null);
             // configure view holder
             viewHolder = new ViewHolder();
-            viewHolder.name = (TextView) rowView.findViewById(R.id.name);
-            viewHolder.description = (TextView) rowView.findViewById(R.id.description);
-            viewHolder.image = (ImageView) rowView
+            viewHolder.name = rowView.findViewById(R.id.name);
+            viewHolder.description = rowView.findViewById(R.id.description);
+            viewHolder.image = rowView
                     .findViewById(R.id.icon);
             // take memory of the view
             rowView.setTag(viewHolder);
@@ -57,7 +57,7 @@ public class ProductsArrayAdapter extends ArrayAdapter<Product> {
             // reuse the object
             viewHolder = (ViewHolder) rowView.getTag();
         }
-        viewHolder.image.setImageResource(R.mipmap.ic_launcher);
+        viewHolder.image.setImageResource(R.mipmap.product);
         viewHolder.name.setText(p.getName());
         viewHolder.description.setText(p.getDescription());
         return rowView;

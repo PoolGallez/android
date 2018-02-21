@@ -6,6 +6,7 @@ import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -90,8 +91,8 @@ public class ProductsDataSource {
                 + " = \"" + name + "\"", null);
     }
 
-    public List<Product> getAllProducts() {
-        List<Product> products = new ArrayList<>();
+    public ArrayList<Product> getAllProducts() {
+        ArrayList<Product> products = new ArrayList<>();
 
         Cursor cursor = database.query(MySQLiteHelper.TABLE_PRODUCTS,
                 allColumns, null, null, null, null, null);

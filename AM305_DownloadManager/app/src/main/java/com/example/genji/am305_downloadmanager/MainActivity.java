@@ -127,7 +127,10 @@ public class MainActivity extends AppCompatActivity {
                     cursor.moveToFirst();
                     int columnIndex = cursor.getColumnIndex(DownloadManager.COLUMN_STATUS);
                     int status = cursor.getInt(columnIndex);
+                    /* deprecated
                     columnIndex = cursor.getColumnIndex(DownloadManager.COLUMN_LOCAL_FILENAME);
+                    */
+                    columnIndex = cursor.getColumnIndex(DownloadManager.COLUMN_LOCAL_URI);
                     String filePath = cursor.getString(columnIndex);
                     // my notification at the end of download
                     MainActivity.this.notify("Downloaded", filePath);

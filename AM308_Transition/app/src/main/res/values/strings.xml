@@ -1,0 +1,18 @@
+<resources>
+    <string name="app_name">AM308_Transition</string>
+    <string name="next">next scene</string>
+    <string name="prev">previous scene</string>
+    <string name="header">Transition</string>
+    <string name="header_scene_1">Scene 1</string>
+    <string name="button_11">One</string>
+    <string name="button_12">Two</string>
+    <string name="header_scene_2">Scene 2</string>
+    <string name="button_21">Three</string>
+    <string name="radio_1">slide vert</string>
+    <string name="radio_2">slide orizz</string>
+    <string name="radio_3">fade</string>
+    <string name="radio_4">custom 1</string>
+    <string name="radio_5">custom 2</string>
+
+
+</resources>

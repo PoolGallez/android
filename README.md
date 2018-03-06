@@ -40,3 +40,7 @@ Ecco la sequenza delle nostre esercitazioni.
 - AM023_Threading: un **working thread** comunica con **UI-thread**.
 - AM027_AsyncTask
 
+## Retrofit 2
+
+- Am104: in questo primo esempio scarichiamo tramite **GSON** un unico oggetto json da un file in rete.
+

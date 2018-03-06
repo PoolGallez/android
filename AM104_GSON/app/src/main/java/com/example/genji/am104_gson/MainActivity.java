@@ -33,24 +33,18 @@ public class MainActivity extends AppCompatActivity {
         Log.d("MainActivity", "call RFInterface.getEmbeddedService()");
         mService = RFService.retrofit.create(RFService.class);
 
-        scrollView = (ScrollView) findViewById(R.id.scroll);
+        scrollView = findViewById(R.id.scroll);
         scrollView.removeAllViews();
         TextView tv = new TextView(this);
-        tv.setText("Elenco giornate");
+        tv.setText(getResources().getString(R.string.header));
         scrollView.addView(tv);
 
 
-        Button btn = (Button) findViewById(R.id.button);
-        btn.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Log.d("MainActivity", "getRFResponse()");
-                getRFResponse();
-            }
+        Button btn = findViewById(R.id.button);
+        btn.setOnClickListener((View view) -> {
+            Log.d("MainActivity", "getRFResponse()");
+            getRFResponse();
         });
-
-
-
     }
 
     public void getRFResponse(){
@@ -94,12 +88,9 @@ public class MainActivity extends AppCompatActivity {
             TextView tv = new TextView(this);
             tv.setLayoutParams(params);
             tv.setText(round.getName());
-            tv.setOnClickListener(new OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Toast.makeText(MainActivity.this, round.getName(), Toast.LENGTH_SHORT).show();
-                }
-            });
+            tv.setOnClickListener((View view) ->
+                Toast.makeText(MainActivity.this, round.getName(), Toast.LENGTH_SHORT).show()
+            );
             linearLayout.addView(tv);
         }
         scrollView.addView(linearLayout);

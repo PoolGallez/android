@@ -11,12 +11,12 @@ import retrofit2.http.GET;
 
 interface RFService {
 
-    public static final String BASE_URL = "https://raw.githubusercontent.com/";
+    String BASE_URL = "https://raw.githubusercontent.com/";
 
     @GET("opendatajson/football.json/master/2016-17/it.1.json")
     Call<Pojo> getPojo(); //get the Pojo object
 
-    public static Retrofit retrofit = new Retrofit.Builder()
+    Retrofit retrofit = new Retrofit.Builder()
             .baseUrl(BASE_URL)
             .addConverterFactory(GsonConverterFactory.create())
             .build();

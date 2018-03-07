@@ -1,4 +1,4 @@
 <resources>
     <string name="app_name">AM101_Mongo</string>
-    <string name="load_cars">load cars</string>
+    <string name="load_products">load products</string>
 </resources>

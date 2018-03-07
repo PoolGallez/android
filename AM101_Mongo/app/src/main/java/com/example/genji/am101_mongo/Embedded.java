@@ -3,16 +3,16 @@ package com.example.genji.am101_mongo;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-import java.util.List;
+import java.util.ArrayList;
 
 /**
- * Created by genji on 2/9/17.
+ * Created by genji on 3/7/18.
  */
 
 public class Embedded {
     @SerializedName("_embedded")
     @Expose
-    private List<Car> embedded = null;
+    private ArrayList<Product> embedded = null;
     @SerializedName("_id")
     @Expose
     private String id;
@@ -20,12 +20,12 @@ public class Embedded {
     @Expose
     private Integer returned;
 
-    public List<Car> getEmbedded() {
+    public ArrayList<Product> getProducts() {
         return embedded;
     }
 
-    public void setEmbedded(List<Car> embedded) {
-        this.embedded = embedded;
+    public void setProducts(ArrayList<Product> products) {
+        this.embedded = products;
     }
 
     public String getId() {

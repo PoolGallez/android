@@ -8,6 +8,6 @@ import retrofit2.http.GET;
  */
 
 public interface EmbeddedService {
-    @GET("/testdb/cars")
-    Call<Embedded> getAnswers();
+    @GET("/mytest/inventory")
+    Call<Embedded> getEmbedded();
 }

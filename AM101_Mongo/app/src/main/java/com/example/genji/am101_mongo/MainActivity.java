@@ -8,7 +8,6 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -16,6 +15,7 @@ import retrofit2.Response;
 
 public class MainActivity extends AppCompatActivity {
 
+    public static final String BASE_URL = "http://192.168.1.2:8080";
     private EmbeddedService mService;
 
     @Override
@@ -23,40 +23,37 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        Log.d("MainActivity", "call ApiUtils.getEmbeddedService()");
-        mService = ApiUtils.getEmbeddedService();
+        Log.d("MainActivity", "create Retrofit Service");
+        mService = RetrofitClient.getClient(BASE_URL).create(EmbeddedService.class);
 
 
-
-        Button btn = (Button) findViewById(R.id.button);
-        btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Log.d("MainActivity", "call loadCars()");
-                loadCars();
-            }
+        Button btn = findViewById(R.id.button);
+        btn.setOnClickListener((View view) -> {
+            Log.d("MainActivity", "call loadCars()");
+            loadProducts();
         });
-
-
+        
     }
 
-    public void loadCars() {
-        mService.getAnswers().enqueue(new Callback<Embedded>() {
+    public void loadProducts() {
+        mService.getEmbedded().enqueue(new Callback<Embedded>() {
 
-            private ArrayList<Car> cars = new ArrayList<>();
+            private ArrayList<Product> products = new ArrayList<>();
 
             @Override
             public void onResponse(Call<Embedded> call, Response<Embedded> response) {
 
                 if(response.isSuccessful()) {
                     Log.d("MainActivity", "posts loaded from API");
-                    cars = (ArrayList<Car>)response.body().getEmbedded();
-                    MainActivity.this.showCars(cars);
+                    Embedded embedded = response.body();
+                    products = embedded.getProducts();
+
+                    MainActivity.this.showProducts(products);
 
                 } else {
                     int statusCode  = response.code();
                     // handle request errors depending on status code
-                    Log.d("MainActivity", "handle request errors");
+                    Log.d("MainActivity", "result code is: " + statusCode);
                 }
             }
 
@@ -69,12 +66,12 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    void showCars(ArrayList<Car> cars){
+    void showProducts(ArrayList<Product> products){
 
-        TextView carList = (TextView) findViewById(R.id.carList);
+        TextView carList = findViewById(R.id.product_list);
         String list ="";
-        for(Car car : cars){
-            list += "name: " + car.getName() +", price: " + car.getPrice() + "\n";
+        for(Product product : products){
+            list += "item: " + product.getItem() +", status: " + product.getStatus() + "\n";
         }
         carList.setText(list);
 

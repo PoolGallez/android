@@ -1,15 +1,28 @@
 package com.example.genji.am309_upload_image;
 
-import android.support.v7.app.AppCompatActivity;
+import android.content.ActivityNotFoundException;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
+
+import android.support.design.widget.Snackbar;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ProgressBar;
 
+
+import com.google.gson.Gson;
+
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
+import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Retrofit;
@@ -17,6 +30,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class MainActivity extends AppCompatActivity {
 
+    private static final String TAG = "My Project";
     private static final int INTENT_REQUEST_CODE = 100;
 
     public static final String URL = "http://191.168.1.2:8080";
@@ -30,8 +44,71 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        initViews();
     }
 
+    private void initViews() {
+
+        mBtImageSelect = findViewById(R.id.btn_select_image);
+        mBtImageShow = findViewById(R.id.btn_show_image);
+        mProgressBar = findViewById(R.id.progress);
+
+        mBtImageSelect.setOnClickListener((View view) -> {
+
+            mBtImageShow.setVisibility(View.GONE);
+
+            Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
+            intent.setType("image/jpeg");
+
+            try {
+                startActivityForResult(intent, INTENT_REQUEST_CODE);
+            } catch (ActivityNotFoundException e) {
+                e.printStackTrace();
+            }
+        });
+
+        mBtImageShow.setOnClickListener(view -> {
+            Intent intent = new Intent(Intent.ACTION_VIEW);
+            intent.setData(Uri.parse(mImageUrl));
+            startActivity(intent);
+        });
+    }
+
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+
+        if (requestCode == INTENT_REQUEST_CODE) {
+
+            if (resultCode == RESULT_OK) {
+
+                try {
+
+                    InputStream is = getContentResolver().openInputStream(data.getData());
+
+                    uploadImage(getBytes(is));
+
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
+
+    public byte[] getBytes(InputStream is) throws IOException {
+        ByteArrayOutputStream byteBuff = new ByteArrayOutputStream();
+
+        int buffSize = 1024;
+        byte[] buff = new byte[buffSize];
+
+        int len = 0;
+        while ((len = is.read(buff)) != -1) {
+            byteBuff.write(buff, 0, len);
+        }
+
+        return byteBuff.toByteArray();
+    }
 
     private void uploadImage(byte[] imageBytes) {
 
@@ -58,6 +135,7 @@ public class MainActivity extends AppCompatActivity {
                     Response responseBody = response.body();
                     mBtImageShow.setVisibility(View.VISIBLE);
                     mImageUrl = URL + responseBody.getPath();
+
                     Snackbar.make(findViewById(R.id.content), responseBody.getMessage(),Snackbar.LENGTH_SHORT).show();
 
                 } else {

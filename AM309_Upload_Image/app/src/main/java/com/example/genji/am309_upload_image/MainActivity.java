@@ -33,7 +33,7 @@ public class MainActivity extends AppCompatActivity {
     private static final String TAG = "My Project";
     private static final int INTENT_REQUEST_CODE = 100;
 
-    public static final String URL = "http://191.168.1.2:8080";
+    public static final String URL = "http://192.168.1.2:8080";
 
     private Button mBtImageSelect;
     private Button mBtImageShow;
@@ -80,15 +80,10 @@ public class MainActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 
         if (requestCode == INTENT_REQUEST_CODE) {
-
             if (resultCode == RESULT_OK) {
-
                 try {
-
                     InputStream is = getContentResolver().openInputStream(data.getData());
-
                     uploadImage(getBytes(is));
-
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
@@ -98,15 +93,12 @@ public class MainActivity extends AppCompatActivity {
 
     public byte[] getBytes(InputStream is) throws IOException {
         ByteArrayOutputStream byteBuff = new ByteArrayOutputStream();
-
         int buffSize = 1024;
         byte[] buff = new byte[buffSize];
-
         int len = 0;
         while ((len = is.read(buff)) != -1) {
             byteBuff.write(buff, 0, len);
         }
-
         return byteBuff.toByteArray();
     }
 
@@ -141,14 +133,11 @@ public class MainActivity extends AppCompatActivity {
                 } else {
 
                     ResponseBody errorBody = response.errorBody();
-
                     Gson gson = new Gson();
 
                     try {
-
                         Response errorResponse = gson.fromJson(errorBody.string(), Response.class);
                         Snackbar.make(findViewById(R.id.content), errorResponse.getMessage(),Snackbar.LENGTH_SHORT).show();
-
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
@@ -163,7 +152,4 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
-
-
-
 }

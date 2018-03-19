@@ -12,6 +12,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.io.File;
 import java.io.FileDescriptor;
@@ -47,26 +48,24 @@ public class MainActivity extends AppCompatActivity {
         Intent photoPickerIntent = new Intent(Intent.ACTION_PICK);
         photoPickerIntent.setType("image/*");
         startActivityForResult(photoPickerIntent, SELECT_IMAGE);
-        // this should open a file manager
     }
 
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent imageReturnedIntent) {
         super.onActivityResult(requestCode, resultCode, imageReturnedIntent);
-
         switch(requestCode) {
             case SELECT_IMAGE:
                 if(resultCode == RESULT_OK){
                     // get Uri from intent data
                     Uri uri = imageReturnedIntent.getData();
-                    // get file name
-                    String name = uri.getLastPathSegment();
+                    // get file path and name
+                    String path = getRealPathFromURI(uri);
+                    String name = path.substring(path.lastIndexOf("/")+1);
                     // set textView
                     TextView tvName =  MainActivity.this.findViewById(R.id.name);
                     tvName.setText(name);
-                    String filePath = getRealPathFromURI(uri);
-                    File file = new File(filePath);
+                    File file = new File(path);
                     uploadFile(file);
                 }
         }
@@ -87,9 +86,9 @@ public class MainActivity extends AppCompatActivity {
 
         // add another part within the multipart request
         String descriptionString = "hello, this is description speaking";
-        RequestBody description =
-                RequestBody.create(
-                        okhttp3.MultipartBody.FORM, descriptionString);
+        RequestBody description = RequestBody.create(
+                // multipart/form-data
+                MultipartBody.FORM, descriptionString);
 
         // finally, execute the request
         Call<ResponseBody> call = mService.upload(description, body);
@@ -98,11 +97,13 @@ public class MainActivity extends AppCompatActivity {
             public void onResponse(Call<ResponseBody> call,
                                    Response<ResponseBody> response) {
                 Log.v("Upload", "success");
+                Toast.makeText(MainActivity.this, getString(R.string.success), Toast.LENGTH_LONG).show();
             }
 
             @Override
             public void onFailure(Call<ResponseBody> call, Throwable t) {
                 Log.e("Upload error:", t.getMessage());
+                Toast.makeText(MainActivity.this, getString(R.string.failure), Toast.LENGTH_LONG).show();
             }
         });
     }
@@ -110,9 +111,10 @@ public class MainActivity extends AppCompatActivity {
     public String getRealPathFromURI(Uri contentUri) {
         Cursor cursor = null;
         try {
-            String[] proj = { MediaStore.Images.Media.DATA };
+            String[] proj = { MediaStore.MediaColumns.DATA }; // Path to the file on disk
             cursor = getContentResolver().query(contentUri,  proj, null, null, null);
-            int column_index = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
+            // Returns the zero-based index for the given column name, or throws IllegalArgumentException if the column doesn't exist.
+            int column_index = cursor.getColumnIndexOrThrow(MediaStore.MediaColumns.DATA);
             cursor.moveToFirst();
             return cursor.getString(column_index);
         } finally {

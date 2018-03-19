@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">AM309_Retrofit2_Upload</string>
+    <string name="header">Upload Image</string>
+    <string name="chose">chose image</string>
 </resources>

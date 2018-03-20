@@ -1,11 +1,16 @@
 {
-  "name": "multipart_server",
+  "name": "myapp_04",
   "version": "1.0.0",
-  "description": "express hello world",
-  "main": "server.js",
+  "description": "a simple gallery application",
+  "main": "app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "AM",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "ejs": "^2.5.7",
+    "express": "^4.15.5",
+    "multer": "^1.3.0"
+  }
 }

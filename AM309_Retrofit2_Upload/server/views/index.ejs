@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title><%= title %></title>
+</head>
+<body>
+  <h1>Photos</h1>
+  <div>
+    <% photos.forEach(function(photo) { %>
+      <div style='float: left'>
+        <img src='<%=photo%>' style='width:200px'/>
+      </div>
+    <% }) %>
+  </div>
+  <p style='clear: left'> 
+    Try to <a href="upload">upload </a>.
+  </p>
+</body>
+</html>

@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title><%= title %></title>
+</head>
+<body>
+  <h1><%= title %></h1>
+  <p>Upload a photo to your account below.</p>
+  <form method='post' enctype='multipart/form-data' action='/upload'>
+    <p><input type='file', name='photo'/></p>
+    <p><input type='submit', value='Upload'/></p>
+  </form>
+</body>
+</html>

@@ -31,6 +31,78 @@ Call<ResponseBody> upload(
 ```
 `RequestBody` è classe di `OkHttp` e rimandiamo alla [api](http://square.github.io/okhttp/3.x/okhttp/), è classe **abstract** e a noi interessa in particolare la sua derivata `MultipartBody` con le classi statiche `MultipartBody.Part` per riferirce alla `@Part` e `MultipartBody.Builder` per costruirla.
 
+## Pick Up a file
+
+Da Kitkat è a disposizione il **ContentProvider** per i documenti salvati; qui sotto alcuni riferimenti per lo studio:
+- [Content Provider Basics](https://developer.android.com/guide/topics/providers/content-provider-basics.html),
+- [Open Files using Storage Access Framework](https://developer.android.com/guide/topics/providers/document-provider.html).
+
+`ContentResolver` permette l'accesso al content model e di lì lavoriamo come mostrato nel codice, si veda ad esempio il recupero del **path reale** del file mediante l'uso del **SAF** (Storage Access Framework).
+
+## Retrofit Request
+
+`@Part` si riferisce alla singola part, come da api in retrofit
+> * If the type is MultipartBody.Part the contents will be used directly. Omit the name from the annotation (i.e., @Part MultipartBody.Part part).  
+* If the type is RequestBody the value will be used directly with its content type. Supply the part name in the annotation (e.g., @Part("foo") RequestBody foo).  
+* Other object types will be converted to an appropriate representation by using a converter. Supply the part name in the annotation (e.g., @Part("foo") Image photo).
+
+Dalla api di okhttp3 abbiamo che
+```
+public static RequestBody create(@Nullable
+                                 MediaType contentType,
+                                 File file)
+
+Returns a new request body that transmits the content of file.
+```
+A questo punto abbiamo due possibilità (tralasciando il caso generico).
+
+### create from data: RequestBody
+
+Partire da dati grezzi tipo `RequestBody` (classe astratta), come nel nostro caso
+```
+public static MultipartBody.Part createFormData(String name,
+                                                @Nullable
+                                                String filename,
+                                                RequestBody body)
+```
+
+### create from data: String
+
+```
+public static MultipartBody.Part createFormData(String name,
+                                                String value)
+```
+
+Ecco come procediamo.
+
+```
+MultipartBody.Part body =
+    MultipartBody.Part.createFormData("image", file.getName(), requestFile);
+```
+e (MA modified)
+```
+RequestBody description =  MultipartBody.Part.createFormData("descriptipon",
+    "image uploaded");
+```
+in alternativa
+```
+public static RequestBody create(@Nullable
+                                 MediaType contentType,
+                                 String content)
+```
+specificando
+```
+MultipartBody.FORM
+```
+> The media-type **multipart/form-data** follows the rules of all multipart MIME data streams as outlined in RFC 2046.
+
+
+
+
+
+
+
+
 
 
 

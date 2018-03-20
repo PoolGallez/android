@@ -45,9 +45,9 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void pickImage(View view){
-        Intent photoPickerIntent = new Intent(Intent.ACTION_PICK);
-        photoPickerIntent.setType("image/*");
-        startActivityForResult(photoPickerIntent, SELECT_IMAGE);
+        Intent imagePickerIntent = new Intent(Intent.ACTION_PICK);
+        imagePickerIntent.setType("image/*");
+        startActivityForResult(imagePickerIntent, SELECT_IMAGE);
     }
 
 
@@ -66,6 +66,7 @@ public class MainActivity extends AppCompatActivity {
                     TextView tvName =  MainActivity.this.findViewById(R.id.name);
                     tvName.setText(name);
                     File file = new File(path);
+                    // upload file
                     uploadFile(file);
                 }
         }
@@ -82,13 +83,18 @@ public class MainActivity extends AppCompatActivity {
 
         // MultipartBody.Part is used to send also the actual file name
         MultipartBody.Part body =
-                MultipartBody.Part.createFormData("picture", file.getName(), requestFile);
+                MultipartBody.Part.createFormData("image", file.getName(), requestFile);
 
         // add another part within the multipart request
-        String descriptionString = "hello, this is description speaking";
+        String descriptionString = "image uploaded";
         RequestBody description = RequestBody.create(
                 // multipart/form-data
                 MultipartBody.FORM, descriptionString);
+
+        /** mia proposta
+        RequestBody description =  MultipartBody.Part.createFormData("descriptipon",
+                "image uploaded");
+         */
 
         // finally, execute the request
         Call<ResponseBody> call = mService.upload(description, body);

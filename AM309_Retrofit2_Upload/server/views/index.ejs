@@ -4,16 +4,13 @@
   <title><%= title %></title>
 </head>
 <body>
-  <h1>Photos</h1>
+  <h1>AM309 Gallery</h1>
   <div>
-    <% photos.forEach(function(photo) { %>
+    <% images.forEach(function(image) { %>
       <div style='float: left'>
-        <img src='<%=photo%>' style='width:200px'/>
+        <img src='<%=image%>' style='width:200px'/>
       </div>
     <% }) %>
   </div>
-  <p style='clear: left'> 
-    Try to <a href="upload">upload </a>.
-  </p>
 </body>
 </html>

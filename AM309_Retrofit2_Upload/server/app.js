@@ -1,6 +1,6 @@
 var express = require('express')
 var fs = require('fs')
-var multer  = require('multer')
+var multer  = require('multer') // https://github.com/expressjs/multer
 var upload = multer({ dest: 'uploads/' })
 
 /* rename files
@@ -28,18 +28,14 @@ app.get('/', function (req, res) {
     });
     */
     console.log(files);
-    res.render('index', { title: 'Gallery', photos: files})
+    res.render('index', { title: 'Images', images: files})
   })
 })
 
-app.get('/upload', function (req, res) {
-  res.render('upload', { title: 'Umpload'})
-})
-
-app.post('/upload', upload.single('photo'), function(req, res) {
+app.post('/upload', upload.single('image'), function(req, res) {
   // req.file is the `photo` file
   // req.body will hold the text fields, if there were any
-  console.log('upload file');
+  console.log('req.body: ' + req.body['description']);
   res.redirect('/')
 })
 

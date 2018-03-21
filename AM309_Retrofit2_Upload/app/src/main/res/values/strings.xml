@@ -4,4 +4,5 @@
     <string name="chose">chose image</string>
     <string name="success">upload success</string>
     <string name="failure">upload failure</string>
+    <string name="permissions">you have not permission</string>
 </resources>

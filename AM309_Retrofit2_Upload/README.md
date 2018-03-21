@@ -10,7 +10,10 @@ Come da documentazione di retrofit le `Part` vengono dichiarate mediante l'annot
 ```
 @Multipart
 @PUT("user/photo")
-Call<User> updateUser(@Part("photo") RequestBody photo, @Part("description") RequestBody description);
+Call<User> updateUser(
+  @Part("photo") RequestBody photo,
+  @Part("description") RequestBody description
+);
 ```
 un altro esempio dalle [api](http://square.github.io/retrofit/2.x/retrofit/)
 ```
@@ -36,6 +39,7 @@ Call<ResponseBody> upload(
 Da Kitkat è a disposizione il **ContentProvider** per i documenti salvati; qui sotto alcuni riferimenti per lo studio:
 - [Content Provider Basics](https://developer.android.com/guide/topics/providers/content-provider-basics.html),
 - [Open Files using Storage Access Framework](https://developer.android.com/guide/topics/providers/document-provider.html).
+- API per `MediaStore` [qui](https://developer.android.com/reference/android/provider/MediaStore.html).
 
 `ContentResolver` permette l'accesso al content model e di lì lavoriamo come mostrato nel codice, si veda ad esempio il recupero del **path reale** del file mediante l'uso del **SAF** (Storage Access Framework).
 
@@ -79,7 +83,7 @@ Ecco come procediamo.
 MultipartBody.Part body =
     MultipartBody.Part.createFormData("image", file.getName(), requestFile);
 ```
-e (MA modified)
+non direi in questo modo ...
 ```
 RequestBody description =  MultipartBody.Part.createFormData("descriptipon",
     "image uploaded");
@@ -96,14 +100,32 @@ MultipartBody.FORM
 ```
 > The media-type **multipart/form-data** follows the rules of all multipart MIME data streams as outlined in RFC 2046.
 
+## Permissions
 
-
-
-
-
-
-
-
+Da Android 6 vengono gestiti i permessi **runtime**, si veda [qui](https://developer.android.com/training/permissions/requesting.html#java). Qui sotto il nostro metodo
+```
+// from API 23 ....
+    public boolean enabledPermission() {
+        if (Build.VERSION.SDK_INT >= 23) { // from Android 6.0
+            if (ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                    == PackageManager.PERMISSION_GRANTED) {
+                return true;
+            } else {
+                ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, 1);
+                return false;
+            }
+        }
+        else {
+            return true;
+        }
+    }
+```
+in `onCreate()`
+```
+// check permissions
+        if(!enabledPermission())
+            Toast.makeText(this, getString(R.string.permissions), Toast.LENGTH_LONG).show();
+```
 
 
 
@@ -111,21 +133,20 @@ MultipartBody.FORM
 
 ## Il server
 
-in questa versione provvisoria il server è un semplice file php
+in questa versione abbiamo usato il nostro server node; per installare i moduli
 ```
-<?php  
-    $file_path = "";
-    $var = $_POST['result'];
-    $file_path = $file_path . basename( $_FILES['uploaded_file']['name']);
-    if(move_uploaded_file($_FILES['uploaded_file']['tmp_name'], $file_path)) {
-        $result = array("result" => "success", "value" => $var);
-    } else{
-        $result = array("result" => "error");
-    }
-    echo json_encode($result);
-?>
+npm install
 ```
-il comando
+quindi lanciare il servere con
 ```
-$ php -S localhost:8080
+node app.js
+```
+qui sotto una parte del server
+```
+app.post('/upload', upload.single('image'), function(req, res) {
+  // req.file is the `photo` file
+  // req.body will hold the text fields, if there were any
+  console.log('req.body: ' + req.body['description']);
+  res.redirect('/')
+})
 ```

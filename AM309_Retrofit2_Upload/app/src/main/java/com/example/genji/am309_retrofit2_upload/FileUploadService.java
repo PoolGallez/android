@@ -17,6 +17,7 @@ public interface FileUploadService {
     @Multipart
     @POST("upload")
     Call<ResponseBody> upload(
+            // two parts
             @Part("description") RequestBody description,
             @Part MultipartBody.Part file
     );

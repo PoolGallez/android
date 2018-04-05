@@ -38,6 +38,7 @@ Ecco la sequenza delle nostre esercitazioni.
 ## Threading
 
 - AM023_Threading: un **working thread** comunica con **UI-thread**.
+- AM023_Handler: entriamo nel dettaglio del threading.
 - AM027_AsyncTask
 
 ## Retrofit 2

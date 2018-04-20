@@ -1,10 +1,8 @@
 <resources>
     <string name="app_name">AM311_Conductor</string>
-    <string name="text_view">A Conductor Example</string>
+    <string name="header">A Conductor Example</string>
     <string name="btn">Click Me</string>
-    <string name="controller_header">Dante</string>
-    <string name="cit">Dante</string>
-
-
-
+    <string name="controller_header">Controller</string>
+    <string name="text1">i vitelli dei romani sono belli</string>
+    <string name="text2">cane nero magna bella persica</string>
 </resources>

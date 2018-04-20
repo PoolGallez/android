@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">AM311_Conductor</string>
+    <string name="text_view">A Conductor Example</string>
+    <string name="btn">Click Me</string>
+    <string name="controller_header">Dante</string>
+    <string name="cit">Dante</string>
+
+
+
+</resources>

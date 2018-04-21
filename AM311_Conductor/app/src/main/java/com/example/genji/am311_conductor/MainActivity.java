@@ -40,7 +40,7 @@ public class MainActivity extends AppCompatActivity {
         if (!router.hasRootController()) {
             // create bundle for MyController
             Bundle bundle = new Bundle();
-            String header = getString(R.string.controller_header);
+            String header = getString(R.string.controller_header) + " n." + k;
             bundle.putString("header", header);
             bundle.putString("text", textResources[0]);
             bundle.putInt("color", colorResources[0]);
@@ -57,15 +57,15 @@ public class MainActivity extends AppCompatActivity {
 
     public void changeController(View v){
         k++;
-        String header = getString(R.string.controller_header);
+        String header = getString(R.string.controller_header) + " n." + k;
         Bundle bundle = new Bundle();
         bundle.putString("header", header);
         bundle.putString("text", textResources[k%2]);
         bundle.putInt("color", colorResources[k%5]);
         router.pushController(RouterTransaction
                 .with(MyController.get(bundle))
-                .pushChangeHandler(new FadeChangeHandler())
-                .popChangeHandler(new FadeChangeHandler()));
+                .pushChangeHandler(new FadeChangeHandler(500))
+                .popChangeHandler(new FadeChangeHandler(500)));
 
     }
 }

@@ -9,13 +9,21 @@ import com.bluelinelabs.conductor.Conductor;
 import com.bluelinelabs.conductor.Router;
 import com.bluelinelabs.conductor.RouterTransaction;
 import com.bluelinelabs.conductor.changehandler.FadeChangeHandler;
+import com.bluelinelabs.conductor.changehandler.HorizontalChangeHandler;
+import com.bluelinelabs.conductor.changehandler.VerticalChangeHandler;
 
 public class MainActivity extends AppCompatActivity {
 
     private Router router;
     private static int k;
     private String[] textResources; // do not initialize here
-    private int[] colorResources; // do not initialize here
+    private int[] colorResources = {
+            0xffb2fc75,
+            0xfffcf875,
+            0xfffcc675,
+            0xff75d8fc,
+            0xfff7aff5
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,13 +33,6 @@ public class MainActivity extends AppCompatActivity {
         textResources = new String[]{
                 getString(R.string.text1),
                 getString(R.string.text2)
-        };
-        colorResources = new int[]{
-                getResources().getColor(R.color.green),
-                getResources().getColor(R.color.yellow),
-                getResources().getColor(R.color.orange),
-                getResources().getColor(R.color.light_blue),
-                getResources().getColor(R.color.pink)
         };
 
         ViewGroup container = findViewById(R.id.controller_container);
@@ -64,8 +65,12 @@ public class MainActivity extends AppCompatActivity {
         bundle.putInt("color", colorResources[k%5]);
         router.pushController(RouterTransaction
                 .with(MyController.get(bundle))
-                .pushChangeHandler(new FadeChangeHandler(500))
-                .popChangeHandler(new FadeChangeHandler(500)));
+                .pushChangeHandler(new FadeChangeHandler(700))
+                .popChangeHandler(new FadeChangeHandler(700)));
+                //.pushChangeHandler(new HorizontalChangeHandler(700))
+                //.popChangeHandler(new HorizontalChangeHandler(700)));
+                //.pushChangeHandler(new VerticalChangeHandler(700))
+                //.popChangeHandler(new VerticalChangeHandler(700)));
 
     }
 }

@@ -29,6 +29,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
 
         diceManager = new DiceManager();
 
@@ -39,7 +40,7 @@ public class MainActivity extends AppCompatActivity {
         sensorManager.registerListener(shakeListener, sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER), SensorManager.SENSOR_DELAY_NORMAL);
 
         // start app with an intro screen
-        setIntroFraggment();
+        setIntroFragment();
 
     }
 
@@ -55,8 +56,14 @@ public class MainActivity extends AppCompatActivity {
         super.onStop();
     }
 
+    @Override
+    public boolean onTouchEvent(MotionEvent event) {
+        gestureDetector.onTouchEvent(event);
+        return super.onTouchEvent(event);
+    }
 
-    public void setIntroFraggment(){
+
+    public void setIntroFragment(){
         FragmentTransaction ft = getFragmentManager().beginTransaction();
         ft.replace(R.id.fragment, new IntroFragment());
         ft.commit();
@@ -75,12 +82,12 @@ public class MainActivity extends AppCompatActivity {
         @Override
         public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX, float velocityY) {
 
-            //Exit if swiped less than 500 millisecons ago
+            // exit if swiped less than 500 millisecons ago
             if (System.currentTimeMillis() - lastSwipe < 500) {
                 return true;
             }
             lastSwipe = System.currentTimeMillis();
-            //Left or Right
+            // left or Right
             if (Math.abs(velocityX) > Math.abs(velocityY)) {
                 if (velocityX < 0) {
                     diceManager.changeFace(Direction.Left);
@@ -139,7 +146,7 @@ public class MainActivity extends AppCompatActivity {
 
         public DiceManager() {
             Activity main = MainActivity.this;
-            this.faces = new DiceFragment[]{
+            faces = new DiceFragment[]{
                     DiceFragment.newIstance(main.getString(R.string.one), main.getResources().getColor(R.color.green)),
                     DiceFragment.newIstance(main.getString(R.string.two), main.getResources().getColor(R.color.blue)),
                     DiceFragment.newIstance(main.getString(R.string.six), main.getResources().getColor(R.color.red)),
@@ -147,7 +154,7 @@ public class MainActivity extends AppCompatActivity {
                     DiceFragment.newIstance(main.getString(R.string.three), main.getResources().getColor(R.color.purple)),
                     DiceFragment.newIstance(main.getString(R.string.four), main.getResources().getColor(R.color.yellow))
             };
-            this.random = new Random();
+            random = new Random();
         }
 
         public void start() {
@@ -165,46 +172,28 @@ public class MainActivity extends AppCompatActivity {
             DiceFragment nextFragment = faces[random.nextInt(6)];
             nextFragment.setDirection(null, 0, 0);
             if (nextFragment != null) {
-                //Transizione
                 FragmentTransaction ft = fm.beginTransaction();
-                //Rimpiazzo
                 ft.replace(R.id.fragment, nextFragment);
-                //Conferma
                 ft.commit();
             }
         }
 
         public void changeFace(Direction direction) {
-            DiceFragment f0 = faces[0];
-            DiceFragment f1 = faces[1];
-            DiceFragment f2 = faces[2];
-            DiceFragment f3 = faces[3];
-            DiceFragment f4 = faces[4];
-            DiceFragment f5 = faces[5];
+            DiceFragment f0 = faces[0]; DiceFragment f1 = faces[1];
+            DiceFragment f2 = faces[2]; DiceFragment f3 = faces[3];
+            DiceFragment f4 = faces[4]; DiceFragment f5 = faces[5];
             switch (direction) {
                 case Up:
-                    faces[0] = f3;
-                    faces[1] = f0;
-                    faces[2] = f1;
-                    faces[3] = f2;
+                    faces[0] = f3; faces[1] = f0; faces[2] = f1; faces[3] = f2;
                     break;
                 case Down:
-                    faces[0] = f1;
-                    faces[1] = f2;
-                    faces[2] = f3;
-                    faces[3] = f0;
+                    faces[0] = f1; faces[1] = f2; faces[2] = f3; faces[3] = f0;
                     break;
                 case Left:
-                    faces[0] = f5;
-                    faces[2] = f4;
-                    faces[4] = f0;
-                    faces[5] = f2;
+                    faces[0] = f5; faces[2] = f4; faces[4] = f0; faces[5] = f2;
                     break;
                 case Right:
-                    faces[0] = f4;
-                    faces[2] = f5;
-                    faces[4] = f2;
-                    faces[5] = f0;
+                    faces[0] = f4; faces[2] = f5; faces[4] = f2; faces[5] = f0;
                     break;
             }
 
@@ -213,7 +202,6 @@ public class MainActivity extends AppCompatActivity {
             DiceFragment currentFragment = (DiceFragment) fm.findFragmentById(R.id.fragment);
 
             if (nextFragment != null) {
-                // for a perfect design ....
                 int width = currentFragment.getView().getWidth();
                 int height = currentFragment.getView().getHeight();
                 currentFragment.setDirection(direction, width, height);

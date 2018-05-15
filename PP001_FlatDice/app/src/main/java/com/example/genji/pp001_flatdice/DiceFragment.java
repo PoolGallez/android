@@ -33,11 +33,11 @@ public class DiceFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        LinearLayout linearLayout = (LinearLayout) inflater.inflate(R.layout.face, container, false);
-        linearLayout.setBackgroundColor(getArguments().getInt("color"));
-        TextView textView = linearLayout.findViewById(R.id.number);
+        View view = inflater.inflate(R.layout.face, container, false);
+        view.setBackgroundColor(getArguments().getInt("color"));
+        TextView textView = view.findViewById(R.id.number);
         textView.setText(getArguments().getString("face"));
-        return linearLayout;
+        return view;
     }
 
     @Override

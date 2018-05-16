@@ -46,4 +46,8 @@ Ecco la sequenza delle nostre esercitazioni.
 
 - AM104_GSON: in questo primo esempio scarichiamo tramite **GSON** un unico oggetto json da un file in rete.
 - AM101_Mongo: in questo primo esempio ci connettiamo al server web **REST** [RestHeart](http://restheart.org/quick-start.html).
-- AM309_Retrofit2_Ipload: upload di immagine usando [okhttp3](http://square.github.io/okhttp/) con server **node**.
+- AM309_Retrofit2_Upload: upload di immagine usando [okhttp3](http://square.github.io/okhttp/) con server **node**.
+
+## Esercitazioni
+
+- PP001_FlatDice: un gioco con i Fragment e non solo. 

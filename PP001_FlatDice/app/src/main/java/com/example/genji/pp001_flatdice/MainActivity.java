@@ -13,16 +13,17 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
+import android.widget.Toast;
 
 import java.util.Random;
 
 public class MainActivity extends AppCompatActivity {
 
-    private boolean started = false;
     private DiceManager diceManager;
     private GestureDetector gestureDetector;
     // or private GestureDetectorCompat gestureDetector;
     private SensorManager sensorManager;
+    private Sensor sensor;
     private ShakeListener shakeListener;
 
 
@@ -31,16 +32,25 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        // create the diceManaer
         diceManager = new DiceManager();
-
+        // create the gestureDetector
         gestureDetector = new GestureDetector(this, new GestureListener());
 
         sensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
-        shakeListener = new ShakeListener();
-        sensorManager.registerListener(shakeListener, sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER), SensorManager.SENSOR_DELAY_NORMAL);
+        // try to use accelerometer
+        if (sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER) != null){
+            sensor = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
+            shakeListener = new ShakeListener();
+            // sensorManager.registerListener(shakeListener, sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER), SensorManager.SENSOR_DELAY_NORMAL);
+            sensorManager.registerListener(shakeListener, sensor , SensorManager.SENSOR_DELAY_NORMAL);
+        }
+        else{
+            Toast.makeText(this, R.string.no_sensor, Toast.LENGTH_LONG).show();
+        }
 
         // start app with an intro screen
-        setIntroFragment();
+        diceManager.setIntroFragment();
 
     }
 
@@ -63,11 +73,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-    public void setIntroFragment(){
-        FragmentTransaction ft = getFragmentManager().beginTransaction();
-        ft.replace(R.id.fragment, new IntroFragment());
-        ft.commit();
-    }
+
 
     class GestureListener extends GestureDetector.SimpleOnGestureListener {
 
@@ -75,7 +81,7 @@ public class MainActivity extends AppCompatActivity {
 
         @Override
         public boolean onSingleTapConfirmed(MotionEvent e) {
-            diceManager.start();
+            diceManager.setIntroFragment();
             return true;
         }
 
@@ -90,19 +96,31 @@ public class MainActivity extends AppCompatActivity {
             // left or Right
             if (Math.abs(velocityX) > Math.abs(velocityY)) {
                 if (velocityX < 0) {
-                    diceManager.changeFace(Direction.Left);
+                    if(diceManager.isStarted()){
+                        diceManager.changeFace(Direction.Left);
+                    }
+                    else diceManager.start();
                 }
                 if (velocityX > 0) {
-                    diceManager.changeFace(Direction.Right);
+                    if(diceManager.isStarted()){
+                        diceManager.changeFace(Direction.Right);
+                    }
+                    else diceManager.start();
                 }
             }
             //Up or Down
             if (Math.abs(velocityY) > Math.abs(velocityX)) {
                 if (velocityY < 0) {
-                    diceManager.changeFace(Direction.Up);
+                    if(diceManager.isStarted()){
+                        diceManager.changeFace(Direction.Up);
+                    }
+                    else diceManager.start();
                 }
                 if (velocityY > 0) {
-                    diceManager.changeFace(Direction.Down);
+                    if(diceManager.isStarted()){
+                        diceManager.changeFace(Direction.Down);
+                    }
+                    else diceManager.start();
                 }
             }
             return true;
@@ -114,15 +132,33 @@ public class MainActivity extends AppCompatActivity {
     // manage shakes (using sensor)
     class ShakeListener implements SensorEventListener {
 
+        private long lastUpdate = 0;
+        private float last_x, last_y, last_z;
+        private static final int SHAKE_THRESHOLD = 600;
+
         @Override
         public void onSensorChanged(SensorEvent sensorEvent) {
             float x = sensorEvent.values[0];
             float y = sensorEvent.values[1];
             float z = sensorEvent.values[2];
-            float acceleration = (float) Math.sqrt((double) (x * x + y * y + z * z));
-            if (acceleration > 30) {
-                diceManager.roll();
+
+            long curTime = System.currentTimeMillis();
+
+            if ((curTime - lastUpdate) > 100) {
+                long diffTime = (curTime - lastUpdate);
+                lastUpdate = curTime;
+                
+                float speed = Math.abs(x + y + z - last_x - last_y - last_z)/ diffTime * 10000;
+
+                if (speed > SHAKE_THRESHOLD) {
+                    diceManager.roll();
+                }
+
+                last_x = x;
+                last_y = y;
+                last_z = z;
             }
+
         }
 
         @Override
@@ -141,11 +177,16 @@ public class MainActivity extends AppCompatActivity {
     // an inner service class
     public class DiceManager {
 
+        private final IntroFragment intro;
         private final DiceFragment[] faces;
         private final Random random;
+        private boolean started = false;
 
+        // a static instance of all the fragments
         public DiceManager() {
+            random = new Random();
             Activity main = MainActivity.this;
+            intro = new IntroFragment();
             faces = new DiceFragment[]{
                     DiceFragment.newIstance(main.getString(R.string.one), main.getResources().getColor(R.color.green)),
                     DiceFragment.newIstance(main.getString(R.string.two), main.getResources().getColor(R.color.blue)),
@@ -154,9 +195,21 @@ public class MainActivity extends AppCompatActivity {
                     DiceFragment.newIstance(main.getString(R.string.three), main.getResources().getColor(R.color.purple)),
                     DiceFragment.newIstance(main.getString(R.string.four), main.getResources().getColor(R.color.yellow))
             };
-            random = new Random();
         }
 
+        public boolean isStarted(){
+            return started;
+        }
+
+        // a sort of splash screen
+        public void setIntroFragment(){
+            FragmentTransaction ft = MainActivity.this.getFragmentManager().beginTransaction();
+            ft.replace(R.id.fragment, intro);
+            ft.commit();
+            started = false;
+        }
+
+        // change to the first face of the dice
         public void start() {
             FragmentManager fm = MainActivity.this.getFragmentManager();
             Fragment nextFragment = faces[0];
@@ -165,11 +218,13 @@ public class MainActivity extends AppCompatActivity {
                 ft.replace(R.id.fragment, nextFragment);
                 ft.commit();
             }
+            started = true;
         }
 
         public void roll() {
             FragmentManager fm = MainActivity.this.getFragmentManager();
-            DiceFragment nextFragment = faces[random.nextInt(6)];
+            int faceNumber = random.nextInt(6);
+            DiceFragment nextFragment = faces[faceNumber];
             nextFragment.setDirection(null, 0, 0);
             if (nextFragment != null) {
                 FragmentTransaction ft = fm.beginTransaction();
@@ -212,5 +267,4 @@ public class MainActivity extends AppCompatActivity {
             }
         }
     }
-
 }

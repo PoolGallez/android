@@ -1,12 +1,13 @@
 <resources>
     <string name="app_name">PP001_FlatDice</string>
+    <string name="no_sensor">Sorry, non sensor</string>
     <string name="intro">
         \u2190 \u2191 \u2192 \u2193 \n
         Trascinare verso le quattro direzioni cardinali per cambiare faccia. \n\n
         \u226A \u226B \n
         Scuotere il dispositivo per tirare il dado. \n\n
         \u261E \n
-        Toccare per iniziare.
+        Toccare per reiniziare.
     </string>
 
     <string name="one">

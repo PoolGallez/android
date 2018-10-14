@@ -1,8 +1,0 @@
-<resources>
-    <string name="app_name">AM041_Service</string>
-
-    <string name="service_started">service started</string>
-    <string name="service_stopped">service stopped</string>
-    <string name="service_label">boundService</string>
-
-</resources>

@@ -1,9 +1,0 @@
-<resources>
-    <string name="app_name">AM016_SQLite</string>
-    <string name="title_activity_operate">Operate</string>
-    <string name="product_name">name</string>
-    <string name="product_description">description</string>
-    <string name="add_product">add</string>
-    <string name="do_nothing">do nothing</string>
-    <string name="header">My Products</string>
-</resources>

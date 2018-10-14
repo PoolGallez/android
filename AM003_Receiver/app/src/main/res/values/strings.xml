@@ -1,7 +1,0 @@
-<resources>
-    <string name="app_name">AM003_Receiver</string>
-    <string name="header">A Broadcast Receiver</string>
-    <string name="start">Start Countdown</string>
-
-
-</resources>

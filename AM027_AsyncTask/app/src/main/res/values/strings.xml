@@ -1,5 +1,0 @@
-<resources>
-    <string name="app_name">AM027_AsyncTask</string>
-    <string name="step">step in ms</string>
-    <string name="run">run AsyncTask</string>
-</resources>

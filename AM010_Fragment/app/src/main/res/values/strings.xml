@@ -1,9 +1,0 @@
-<resources>
-    <string name="app_name">AM010_Fragment</string>
-    <string name="btn1">Fragment 1</string>
-    <string name="btn2">Fragment 2</string>
-    <string name="fragment_header"> Uellaaa </string>
-    <string name="f1"> Fragment 1 </string>
-    <string name="f2"> Fragment 2 </string>
-    <string name="cit"> i vitelli dei romani sono belli </string>
-</resources>

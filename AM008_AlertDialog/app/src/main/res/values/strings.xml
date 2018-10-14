@@ -1,8 +1,0 @@
-<resources>
-    <string name="app_name">AM008_AlertDialog</string>
-    <string name="header">Dialogs</string>
-    <string name="positive">OK</string>
-    <string name="negative">NO</string>
-    <string name="custom_dialog">ChatRoom</string>
-    <string name="custom2">... custom</string>
-</resources>

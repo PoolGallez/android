@@ -1,7 +1,0 @@
-<resources>
-    <string name="app_name">AM004_Receiver</string>
-    <string name="title">Broadcast</string>
-    <string name="btn1">prg</string>
-    <string name="btn2">xml</string>
-    <string name="btn3">local</string>
-</resources>

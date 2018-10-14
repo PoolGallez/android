@@ -1,6 +1,0 @@
-<resources>
-    <string name="app_name">AM006_Activity</string>
-    <string name="main_activity">Main Activity</string>
-    <string name="second_activity">Second Activity</string>
-    <string name="press_me">Go To Second Activity</string>
-</resources>

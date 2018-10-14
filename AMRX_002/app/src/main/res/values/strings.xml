@@ -1,6 +1,0 @@
-<resources>
-    <string name="app_name">AMRX_002</string>
-    <string name="h1">Transform ArrayList of Objects With True Attribute</string>
-    <string name="transform_arraylist">Filter ArrayList Using Observable</string>
-    <string name="filter">FILTER</string>
-</resources>
